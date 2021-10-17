@@ -1,0 +1,28 @@
+﻿<Window x:Class="AutoDoomFramework.Views.LoadingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoDoomFramework.Views"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="LoadingWindow" Height="200" Width="400" WindowStyle="None" x:Name="parent">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="10"/>
+    </WindowChrome.WindowChrome>
+
+    <Grid Background="{StaticResource LoadingBackground}">
+        <Border BorderBrush="{StaticResource LightBorder}" BorderThickness="1">
+            <Label Foreground="{StaticResource LightGrey}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic" Content="Loading program..." >
+            </Label>
+        </Border>
+
+        <i:Interaction.Triggers>
+            <i:DataTrigger Binding="{Binding Path=Loaded}" Value="True">
+                <i:CallMethodAction TargetObject="{Binding ElementName=parent}" MethodName="OnEditorLoaded"/>
+            </i:DataTrigger>
+        </i:Interaction.Triggers>
+    </Grid>
+</Window>

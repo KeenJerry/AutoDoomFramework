@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="AutoDoomFramework.Views.Icons.SaveIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoDoomFramework.Views.Icons"
+             mc:Ignorable="d" 
+             d:DesignHeight="512" d:DesignWidth="512">
+    <Grid Margin="2">
+        <Viewbox Stretch="Uniform">
+            <Canvas Name="svg5" Width="512" Height="512">
+                <Canvas.RenderTransform>
+                    <TranslateTransform X="0" Y="0"/>
+                </Canvas.RenderTransform>
+                <Canvas.Resources/>
+                <!--Unknown tag: sodipodi:namedview-->
+                <Canvas Name="layer1">
+                    <Canvas Name="g63">
+                        <Canvas.RenderTransform>
+                            <ScaleTransform ScaleX="1.1557562" ScaleY="1.1557562"/>
+                        </Canvas.RenderTransform>
+                        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="208" Canvas.Top="20" Width="18" Height="68" RadiusX="9" RadiusY="9" Name="rect38" Fill="#0791ED"/>
+                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path40" Fill="#B7B7B8">
+                            <Path.Data>
+                                <PathGeometry Figures="M 98 98 V 541 H 541 V 202.7 L 436.3 98 Z M 510.5 510.5 H 129 V 129 h 291.33 l 90.17 90.17 z" FillRule="NonZero"/>
+                            </Path.Data>
+                            <Path.RenderTransform>
+                                <TranslateTransform X="-98" Y="-98"/>
+                            </Path.RenderTransform>
+                        </Path>
+                        <Polygon xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Points="" Name="polygon42" FillRule="NonZero" Fill="#B7B7B8"/>
+                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path44" Fill="#B7B7B8">
+                            <Path.Data>
+                                <PathGeometry Figures="M 176 355.75 V 529 H 464 V 355.75 Z M 430.5 521.13 H 208 V 387.25 h 222.5 z" FillRule="NonZero"/>
+                            </Path.Data>
+                            <Path.RenderTransform>
+                                <TranslateTransform X="-98" Y="-98"/>
+                            </Path.RenderTransform>
+                        </Path>
+                        <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path46" Fill="#B7B7B8">
+                            <Path.Data>
+                                <PathGeometry Figures="m 378.08 244.36 -0.86 -137 -200.77 1.28 0.87 137 z m -178.23 -129.62 155.13 -1 0.67 105.84 -155.13 1 z" FillRule="NonZero"/>
+                            </Path.Data>
+                            <Path.RenderTransform>
+                                <TranslateTransform X="-98" Y="-98"/>
+                            </Path.RenderTransform>
+                        </Path>
+                        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="131" Canvas.Top="318" Width="182" Height="20" RadiusX="10" RadiusY="10" Name="rect48" Fill="#0791ED"/>
+                        <Rectangle xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="131" Canvas.Top="370" Width="182" Height="20" RadiusX="10" RadiusY="10" Name="rect50" Fill="#0791ED"/>
+                    </Canvas>
+                </Canvas>
+            </Canvas>
+        </Viewbox>
+    </Grid>
+</UserControl>

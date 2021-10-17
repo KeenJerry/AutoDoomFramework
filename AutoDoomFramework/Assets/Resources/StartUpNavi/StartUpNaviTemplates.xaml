@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="StartUpNaviButtonTemplate" TargetType="Button">
+        <Grid>
+            <Border Background="Transparent" BorderBrush="{x:Null}" BorderThickness="0" x:Name="Background" Margin="2 2 2 2">
+                <Label Content="{TemplateBinding Content}" VerticalAlignment="Center" 
+                       HorizontalAlignment="Left" Margin="20 0 0 0" Foreground="White" x:Name="Content"/>
+            </Border>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Content" Property="Foreground" Value="#9C9C9C"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter TargetName="Background" Property="Background" Value="#007EE6"/>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="StartUpNaviCheckBoxTemplate" TargetType="CheckBox">
+        <Grid>
+            <Border Background="Transparent" BorderBrush="{x:Null}" BorderThickness="0" x:Name="Background" Margin="2 2 2 2">
+                <Label Content="{TemplateBinding Content}" VerticalAlignment="Center" 
+                       HorizontalAlignment="Left" Margin="20 0 0 0" Foreground="White" x:Name="Content"/>
+            </Border>
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Content" Property="Foreground" Value="#9C9C9C"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="Background" Property="Background" Value="#006BC9"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                    <Condition Property="IsChecked" Value="False"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter TargetName="Background" Property="Background" Value="#007EE6"/>
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+
+    </ControlTemplate>
+</ResourceDictionary>
