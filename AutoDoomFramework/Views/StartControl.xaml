@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="AutoDoomFramework.Views.StartControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoDoomFramework.Views"
+             xmlns:app="clr-namespace:AutoDoomFramework"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Assets/Resources/Project/VerticalScrollBarTemplate.xaml"/>
+                <ResourceDictionary Source="/Assets/Resources/Project/ScrollViewerTemplate.xaml"/>
+                <ResourceDictionary Source="/Assets/Resources/Project/StartUpButtonTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Border Background="Transparent" BorderBrush="{x:Null}" BorderThickness="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Margin="0 0 0 20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="{StaticResource LightGrey}" Margin="20 0 0 0" FontWeight="Heavy" FontSize="15">Recent Projects</Label>
+                    <Line Grid.Row="1" StrokeDashArray="2 2" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          X2="{Binding ActualWidth, RelativeSource={RelativeSource self}}" Stroke="{StaticResource ResourceKey=Spliter}"
+                          Margin="20 -10 0 0"/>
+                    <ScrollViewer Grid.Row="2" Margin="20 0 0 0" Template="{StaticResource ResourceKey=ScrollViewerControlTemplate}" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Orientation="Vertical">
+                            <ItemsControl ItemsSource="{Binding Path=Registries}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="CreateProcessButton" Content="{Binding Path=Name}" Template="{StaticResource StartUpButtonTemplate}" Tag="Process" Height="50" Click="CreateProcessButton_Click"></Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <Rectangle Fill="{StaticResource ResourceKey=Spliter}" Grid.Column="1" Width="2" Margin="0 0 0 20"></Rectangle>
+                <Grid Grid.Column="2" Margin="0 0 0 20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="{StaticResource LightGrey}" FontWeight="Heavy" FontSize="15">New Project</Label>
+                    <Line Grid.Row="1" StrokeDashArray="2 2" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                          X2="{Binding ActualWidth, RelativeSource={RelativeSource self}}" Stroke="{StaticResource ResourceKey=Spliter}"
+                          Margin="0 -10 20 0"/>
+                    <Grid Grid.Row="2" Margin="0 0 20 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button x:Name="CreateProcessButton" Content="Process" Template="{StaticResource StartUpButtonTemplate}" Tag="Start with a blank project for process." Click="CreateProcessButton_Click"></Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

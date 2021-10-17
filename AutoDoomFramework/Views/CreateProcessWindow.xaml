@@ -1,0 +1,101 @@
+﻿<Window x:Class="AutoDoomFramework.Views.CreateProcessWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoDoomFramework.Views"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="CreateProcessWindow" Height="340" Width="440" WindowStyle="None">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="10"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Assets/Resources/TopBar/TopBarButtonTemplate.xaml"/>
+                <ResourceDictionary Source="/Assets/Resources/Project/SelectLocationButtonTemplate.xaml"/>
+                <ResourceDictionary Source="/Assets/Resources/Project/CreateProcessTextBoxStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TopBarGrid" Background="{StaticResource Dock}" Height="30" VerticalAlignment="Top" MouseDown="TopBarGrid_MouseDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="1" VerticalAlignment="Center" Foreground="{StaticResource Letter}" Content="New Blank Process" />
+            <Button Grid.Column="2" x:Name="TopBarCloseButton" Width="40" Template="{StaticResource ResourceKey=TopBarCloseButtonTemplate}" ToolTip="Close"
+                    HorizontalAlignment="Right" Click="TopBarCloseButton_Click">
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10" Grid.IsSharedSizeScope="True">
+            <Grid.RowDefinitions >
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Content="New Blank Process" Padding="0" Foreground="White" FontWeight="Bold" FontSize="15"/>
+            <Label Grid.Row="1" Content="Start with a blank project to design a new automation process."
+                   Padding="0" Foreground="{StaticResource Letter}" FontSize="12"/>
+            <Separator Grid.Row="2" Background="{StaticResource LightBorder}" VerticalAlignment="Top"/>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" SharedSizeGroup="Label"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Label Content="Name *" Padding="0" Foreground="{StaticResource Letter}" VerticalAlignment="Center"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="Location *" Padding="0" Foreground="{StaticResource Letter}" VerticalAlignment="Center"/>
+                <Label Grid.Row="2" Grid.Column="0" Height="30" Content="Description" Padding="0" Foreground="{StaticResource Letter}" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+
+                <TextBox x:Name="NameTextBox" Grid.Row="0" Grid.Column="1" Foreground="{StaticResource Letter}" Background="Transparent" VerticalContentAlignment="Center"
+                         Margin="5" CaretBrush="White" Text="{Binding Path=Process.Name}" Style="{StaticResource CreateProcessTextStyle}" TextChanged="NameTextBox_TextChanged">
+                </TextBox>
+                <Grid Grid.Row="1" Grid.Column="1" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="25"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="LocationTextBox" Grid.Column="0" Background="Transparent" Foreground="{StaticResource Letter}"
+                             Style="{StaticResource CreateProcessTextStyle}" VerticalContentAlignment="Center" CaretBrush="White"
+                             Text="{Binding Path=Process.Location}" TextChanged="LocationTextBox_TextChanged">
+                    </TextBox>
+                    <Button Grid.Column="1" x:Name="SelectLocationButton" Template="{StaticResource SelectLocationButtonTemplate}" Click="SelectLocationButton_Click"/>
+                </Grid>
+                <TextBox x:Name="DescriptionTextBox" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" CaretBrush="White"
+                         Background="Transparent" Foreground="{StaticResource Letter}" Margin="5"
+                         BorderBrush="{StaticResource LightBorder}" TextChanged="DescriptionTextBox_TextChanged"
+                         Text="{Binding Path=Process.Description}"/>
+            </Grid>
+           
+        </Grid>
+        <Border Grid.Row="2" Background="{StaticResource Dock}">
+            <Button x:Name="OpenEditorButton" Grid.Row="2" Height="23" Width="60" HorizontalAlignment="Right" Margin="0 0 8 0" IsEnabled="{Binding Path=CreateButtonEnabled}" Command="{Binding LoadEditorCommand}" Click="OpenEditorButton_Click" ClickMode="Release" >
+                Create
+            </Button>
+        </Border>
+    </Grid>
+        
+</Window>

@@ -1,0 +1,138 @@
+﻿<Window x:Class="AutoDoomFramework.Views.EditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoDoomFramework.Views"
+        xmlns:icons="clr-namespace:AutoDoomFramework.Views.Icons"
+        xmlns:tools="clr-namespace:AutoDoomFramework.Common.Tools"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="EditorWindow" Height="600" Width="1080" WindowStyle="None">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="10"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Assets/Resources/TopBar/TopBarButtonTemplate.xaml"/>
+                <ResourceDictionary Source="/Assets/Resources/StartUpNavi/StartUpNaviTemplates.xaml"/>
+                <ResourceDictionary Source="/Assets/Resources/Editor/EditorTabControlStyle.xaml"/>
+                <ResourceDictionary Source="/Assets/Resources/Editor/FunctionPopupButtonStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <tools:LongestItemLengthConverter x:Key="MaxLengthConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border BorderBrush="{StaticResource LightBorder}" BorderThickness="1">
+    
+        <Grid Background="{StaticResource EditorTopBar}">
+            <Grid x:Name="ControlTabGrid" Background="Transparent" VerticalAlignment="Top" Panel.ZIndex="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TabControl x:Name="FunctionErea" Grid.Row="0" VerticalAlignment="Top" Style="{StaticResource EditorTabControlStyle}">
+
+                    <TabItem Header="DESIGN" IsSelected="True" Height="30" FontSize="13">
+                        <Grid Margin="5 3 3 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="38"/>
+                                <ColumnDefinition Width="3"/>
+                                <ColumnDefinition Width="52"/>
+                                <ColumnDefinition Width="3"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="76"/>
+                            </Grid.RowDefinitions>
+                            
+                            <local:FunctionButton x:Name="ddd" PopupContent="Save">
+                                <local:FunctionButton.ButtonContent>
+                                    <icons:SaveIcon />
+                                </local:FunctionButton.ButtonContent>
+                                <local:FunctionButton.PopupItems >
+                                    <ComboBoxItem>
+                                        <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Width="{Binding PopupItems, RelativeSource={RelativeSource AncestorType=local:FunctionButton}, Converter={StaticResource MaxLengthConverter}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <icons:SaveIcon/>
+                                                <Label Content="Save As" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0"  Width="{Binding PopupItems, RelativeSource={RelativeSource AncestorType=local:FunctionButton}, Converter={StaticResource MaxLengthConverter}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <icons:SaveAllIcon/>
+                                                <Label Content="Save All" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </ComboBoxItem>
+                                </local:FunctionButton.PopupItems>
+                            </local:FunctionButton>
+
+                            <local:FunctionButton x:Name="dddd" Grid.Column="2" PopupContent="Debug">
+                                <local:FunctionButton.ButtonContent>
+                                    <icons:RunIcon />
+                                </local:FunctionButton.ButtonContent>
+                                <local:FunctionButton.PopupItems>
+                                    <ComboBoxItem>
+                                        <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0"  Width="{Binding PopupItems, RelativeSource={RelativeSource AncestorType=local:FunctionButton}, Converter={StaticResource MaxLengthConverter}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <icons:RunIcon/>
+                                                <Label Content="Run" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0"  Width="{Binding PopupItems, RelativeSource={RelativeSource AncestorType=local:FunctionButton}, Converter={StaticResource MaxLengthConverter}}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <icons:DebugIcon/>
+                                                <Label Content="Debug" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </ComboBoxItem>
+                                </local:FunctionButton.PopupItems>
+                                
+                            </local:FunctionButton> 
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="OTHER" IsSelected="False" Height="30" FontSize="13">
+                        ddddd
+                    </TabItem>
+                </TabControl>
+            </Grid>
+            <Grid x:Name="TopBarGrid" VerticalAlignment="Top" Height="30" Panel.ZIndex="1" MouseDown="TopBarGrid_MouseDown" Margin="160 0 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Fill="Transparent"/>
+
+                <Label HorizontalAlignment="Center" Foreground="#FFC7C7C7" FontSize="12" FontWeight="Light" Margin="-80 2 0 0" Content="{Binding RegistryName}">
+                    
+                </Label>
+
+                <Button x:Name="TopBarCloseButton" Width="40" Template="{StaticResource ResourceKey=TopBarCloseButtonTemplate}" ToolTip="Close"
+                        HorizontalAlignment="Right" Click="TopBarCloseButton_Click">
+
+                </Button>
+                <Button x:Name="TopBarScaleButton" Width="40" Template="{StaticResource ResourceKey=TopBarScaleButtonTemplate}" ToolTip="Scale" 
+                        HorizontalAlignment="Right" Margin="0,0,40,0" Click="TopBarScaleButton_Click">
+
+                </Button>
+                <Button x:Name="TopBarMinimizeButton" Width="40" Template="{StaticResource ResourceKey=TopBarMinimizeButtonTemplate}" ToolTip="Minimise" Background="{x:Null}"
+                        HorizontalAlignment="Right" Margin="0,0,80,0" Click="TopBarMinimizeButton_Click">
+
+                </Button>
+            </Grid>
+        </Grid>
+    </Border>
+
+</Window>

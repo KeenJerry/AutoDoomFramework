@@ -1,0 +1,29 @@
+﻿<prism:PrismApplication x:Class="AutoDoomFramework.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AutoDoomFramework.Views"
+             xmlns:prism="http://prismlibrary.com/">
+    <Application.Resources>
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="Spliter" Color="#525252" />
+            <SolidColorBrush x:Key="LightGrey" Color="#A7A8A9"/>
+            <SolidColorBrush x:Key="Background" Color="#FF1E1E1E"/>
+            <SolidColorBrush x:Key="Dock" Color="#FF333333"/>
+            <SolidColorBrush x:Key="LightBorder" Color="#55555E"/>
+            <SolidColorBrush x:Key="Letter" Color="#E8E8E9"/>
+            <SolidColorBrush x:Key="NewProjectHover" Color="#575A61"/>
+            <SolidColorBrush x:Key="NewProjectDown" Color="#797D87"/>
+            <SolidColorBrush x:Key="EditorTopBar" Color="#2D2F32"/>
+            <SolidColorBrush x:Key="EditorTabControlContent" Color="#232325"/>
+            <SolidColorBrush x:Key="EditorActive" Color="#0791ED"/>
+            <SolidColorBrush x:Key="LoadingBackground" Color="#232325"/>
+            <SolidColorBrush x:Key="ScrollBarRepeatButtonBackground" Color="#2D2F32"/>
+            <SolidColorBrush x:Key="ScrollBarTrackBackground" Color="#575A61"/>
+            <SolidColorBrush x:Key="LighterBorder" Color="#60606B"/>
+            <SolidColorBrush x:Key="FunctionButtonHoverBackground" Color="#797D87"/>
+            <SolidColorBrush x:Key="FunctionButtonPopupDisableForeground" Color="#535354"/>
+
+
+        </ResourceDictionary>
+    </Application.Resources>
+</prism:PrismApplication>
