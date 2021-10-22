@@ -209,10 +209,10 @@
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
 
-                                <Button Style="{DynamicResource FunctionButtonTopStyle}" Content="{TemplateBinding ButtonContent}">
+                                <Button Style="{DynamicResource FunctionButtonTopStyle}" Content="{Binding ButtonContent, RelativeSource={RelativeSource TemplatedParent}}">
                                     
                                 </Button>
-                                <ComboBox Grid.Row="1" Style="{DynamicResource FunctionComboBoxStyle}" Tag="{TemplateBinding PopupContent}" ItemsSource="{TemplateBinding PopupItems}">
+                                <ComboBox Grid.Row="1" Style="{DynamicResource FunctionComboBoxStyle}" Tag="{Binding PopupContent, RelativeSource={RelativeSource TemplatedParent}}" ItemsSource="{Binding PopupItems, RelativeSource={RelativeSource TemplatedParent}}">
                                 </ComboBox>
                             </Grid>
                         </Border>

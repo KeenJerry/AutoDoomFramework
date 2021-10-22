@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:AutoDoomFramework.Views"
         xmlns:icons="clr-namespace:AutoDoomFramework.Views.Icons"
         xmlns:tools="clr-namespace:AutoDoomFramework.Common.Tools"
-        xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:avalon="https://github.com/Dirkster99/AvalonDock"
+        xmlns:sapt="clr-namespace:System.Activities.Presentation.Toolbox;assembly=System.Activities.Presentation"
         mc:Ignorable="d"
         Title="EditorWindow" Height="600" Width="1080" WindowStyle="None">
     <WindowChrome.WindowChrome>
@@ -23,17 +23,27 @@
                 <ResourceDictionary Source="/Assets/Resources/Editor/FunctionPopupButtonStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <tools:LongestItemLengthConverter x:Key="MaxLengthConverter"/>
+            <DataTemplate x:Key="AutoDoomAnchorableTitleTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding IconSource, Converter={avalon:NullToDoNothingConverter}}" Height="17" Width="17" Margin="0 0 2 0"/>
+                    <TextBlock 
+                        VerticalAlignment="Center"
+                        Text="{Binding Title}"
+                        TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Window.Resources>
 
     <Border BorderBrush="{StaticResource LightBorder}" BorderThickness="1">
     
         <Grid Background="{StaticResource EditorTopBar}">
-            <Grid x:Name="ControlTabGrid" Background="Transparent" VerticalAlignment="Top" Panel.ZIndex="1">
+            <Grid x:Name="ControlTabGrid" Background="Transparent" VerticalAlignment="Stretch" Panel.ZIndex="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="110"/>
-                    <RowDefinition />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
                 <TabControl x:Name="FunctionErea" Grid.Row="0" VerticalAlignment="Top" Style="{StaticResource EditorTabControlStyle}">
 
@@ -52,51 +62,43 @@
                                 <RowDefinition Height="76"/>
                             </Grid.RowDefinitions>
                             
-                            <local:FunctionButton x:Name="ddd" PopupContent="Save">
+                            <local:FunctionButton x:Name="SaveFunctionButton" PopupContent="Save">
                                 <local:FunctionButton.ButtonContent>
                                     <icons:SaveIcon />
                                 </local:FunctionButton.ButtonContent>
                                 <local:FunctionButton.PopupItems >
-                                    <ComboBoxItem>
-                                        <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Width="{Binding PopupItems, RelativeSource={RelativeSource AncestorType=local:FunctionButton}, Converter={StaticResource MaxLengthConverter}}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <icons:SaveIcon/>
-                                                <Label Content="Save As" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0"  Width="{Binding PopupItems, RelativeSource={RelativeSource AncestorType=local:FunctionButton}, Converter={StaticResource MaxLengthConverter}}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <icons:SaveAllIcon/>
-                                                <Label Content="Save All" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </ComboBoxItem>
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <icons:SaveIcon/>
+                                            <Label Content="Save As" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <icons:SaveAllIcon/>
+                                            <Label Content="Save All" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                 </local:FunctionButton.PopupItems>
                             </local:FunctionButton>
 
-                            <local:FunctionButton x:Name="dddd" Grid.Column="2" PopupContent="Debug">
+                            <local:FunctionButton x:Name="RunFunctionButton" Grid.Column="2" PopupContent="Debug">
                                 <local:FunctionButton.ButtonContent>
                                     <icons:RunIcon />
                                 </local:FunctionButton.ButtonContent>
                                 <local:FunctionButton.PopupItems>
-                                    <ComboBoxItem>
-                                        <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0"  Width="{Binding PopupItems, RelativeSource={RelativeSource AncestorType=local:FunctionButton}, Converter={StaticResource MaxLengthConverter}}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <icons:RunIcon/>
-                                                <Label Content="Run" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </ComboBoxItem>
-                                    <ComboBoxItem>
-                                        <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0"  Width="{Binding PopupItems, RelativeSource={RelativeSource AncestorType=local:FunctionButton}, Converter={StaticResource MaxLengthConverter}}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <icons:DebugIcon/>
-                                                <Label Content="Debug" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </ComboBoxItem>
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <icons:RunIcon/>
+                                            <Label Content="Run" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <icons:DebugIcon/>
+                                            <Label Content="Debug" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                 </local:FunctionButton.PopupItems>
                                 
                             </local:FunctionButton> 
@@ -107,6 +109,59 @@
                         ddddd
                     </TabItem>
                 </TabControl>
+
+                <avalon:DockingManager x:Name="EditorDockingManager" Grid.Row="1" AnchorableHeaderTemplate="{StaticResource AutoDoomAnchorableTitleTemplate}">
+                    <avalon:DockingManager.Theme>
+                        <avalon:Vs2013DarkTheme/>
+                    </avalon:DockingManager.Theme>
+                    <avalon:LayoutRoot>
+                        <avalon:LayoutRoot.LeftSide>
+                            <avalon:LayoutAnchorSide>
+                                <avalon:LayoutAnchorGroup>
+                                    <avalon:LayoutAnchorable Title="Project" AutoHideWidth="100" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/project.png">
+                                    </avalon:LayoutAnchorable>
+                                </avalon:LayoutAnchorGroup>
+                                <avalon:LayoutAnchorGroup>
+                                    <avalon:LayoutAnchorable Title="Activities" AutoHideWidth="200" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/activity.png">
+                                        
+                                        <Grid VerticalAlignment="Top">
+                                            <local:ToolBoxControl>
+                                            </local:ToolBoxControl>
+                                        </Grid>
+                                        
+                                    </avalon:LayoutAnchorable>
+                                </avalon:LayoutAnchorGroup>
+                            </avalon:LayoutAnchorSide>
+                        </avalon:LayoutRoot.LeftSide>
+
+                        <avalon:LayoutPanel>
+                            <avalon:LayoutDocumentPaneGroup>
+                                <avalon:LayoutDocumentPane>
+                                    <avalon:LayoutDocument Title="Main">
+                                    </avalon:LayoutDocument>
+                                </avalon:LayoutDocumentPane>
+                            </avalon:LayoutDocumentPaneGroup>
+                        </avalon:LayoutPanel>
+
+                        <avalon:LayoutRoot.RightSide>
+                            <avalon:LayoutAnchorSide>
+                                <avalon:LayoutAnchorGroup>
+                                    <avalon:LayoutAnchorable Title="Properties" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/property.png"/>
+                                </avalon:LayoutAnchorGroup>
+                            </avalon:LayoutAnchorSide>
+                        </avalon:LayoutRoot.RightSide>
+
+                        <avalon:LayoutRoot.BottomSide>
+                            <avalon:LayoutAnchorSide>
+                                <avalon:LayoutAnchorGroup>
+                                    <avalon:LayoutAnchorable Title="Output" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/Output.png"/>
+                                </avalon:LayoutAnchorGroup>
+                            </avalon:LayoutAnchorSide>
+                        </avalon:LayoutRoot.BottomSide>
+                    </avalon:LayoutRoot>
+                </avalon:DockingManager>
+
+                <Border Grid.Row="2" Background="#1569BC" BorderThickness="0"/>
             </Grid>
             <Grid x:Name="TopBarGrid" VerticalAlignment="Top" Height="30" Panel.ZIndex="1" MouseDown="TopBarGrid_MouseDown" Margin="160 0 0 0">
                 <Grid.ColumnDefinitions>

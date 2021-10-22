@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="512" d:DesignWidth="512">
     <Grid Margin="2">
-        <Viewbox  Stretch="Uniform">
+        <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
             <Canvas Name="svg5" Width="512" Height="512">
                 <Canvas.RenderTransform>
                     <TranslateTransform X="0" Y="0"/>
@@ -15,14 +15,15 @@
                 <Canvas.Resources/>
                 <!--Unknown tag: sodipodi:namedview-->
                 <Canvas Name="layer1">
-                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path450" Fill="#007DD4" StrokeThickness="1.9176">
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path26" Fill="#007DD4" StrokeThickness="1.9176">
                         <Path.Data>
-                            <PathGeometry Figures="M 80.934708 0 V 512 L 429.93846 256 Z M 100.11074 36.702921 399.25681 256.13423 100.11074 475.56554 Z" FillRule="NonZero"/>
+                            <PathGeometry Figures="M 82.108 0 V 512 L 431.11174 256 Z M 120.46005 78.909363 362.07803 256.13423 120.46005 433.37828 Z" FillRule="NonZero"/>
                         </Path.Data>
                     </Path>
                 </Canvas>
             </Canvas>
         </Viewbox>
+
 
     </Grid>
 </UserControl>

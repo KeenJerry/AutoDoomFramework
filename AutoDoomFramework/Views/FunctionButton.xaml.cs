@@ -35,10 +35,10 @@ namespace AutoDoomFramework.Views
             set => SetValue(PopupContentProperty, value);
         }
 
-        public static readonly DependencyProperty PopupItemsProperty = DependencyProperty.Register("PopupItems", typeof(List<ComboBoxItem>), typeof(FunctionButton), new PropertyMetadata(new List<ComboBoxItem>()));
-        public List<ComboBoxItem> PopupItems
+        public static readonly DependencyProperty PopupItemsProperty = DependencyProperty.Register("PopupItems", typeof(List<Button>), typeof(FunctionButton), new PropertyMetadata(new List<Button>()));
+        public List<Button> PopupItems
         {
-            get => GetValue(PopupItemsProperty) as List<ComboBoxItem>;
+            get => GetValue(PopupItemsProperty) as List<Button>;
             set => SetValue(PopupItemsProperty, value);
         }
 
@@ -51,7 +51,7 @@ namespace AutoDoomFramework.Views
 
         public FunctionButton()
         {
-            SetValue(PopupItemsProperty, new List<ComboBoxItem>());
+            SetValue(PopupItemsProperty, new List<Button>());
             InitializeComponent();
         }
     }
