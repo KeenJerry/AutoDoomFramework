@@ -8,10 +8,11 @@
              d:DesignHeight="450" d:DesignWidth="150">
     <UserControl.Resources>
         <Style TargetType="ToggleButton" x:Key="ToggleButtonStyle">
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">
-                        <Grid Width="25" Height="25">
+                        <Grid Width="25" Height="25" Background="{TemplateBinding Background}">
                             <Border>
                                 <Path x:Name="Toggle" Data="M11 9 15 13 M15 13 11 17" Stroke="White" StrokeThickness="1">
                                     <Path.RenderTransform>
@@ -19,7 +20,6 @@
                                     </Path.RenderTransform>
                                 </Path>
                             </Border>
-                            <Button Width="15" Height="15" Name="Mask" Background="White" Opacity="0.0"/>
                         </Grid>
 
                         <ControlTemplate.Triggers>
@@ -35,31 +35,36 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        <Style TargetType="{x:Type TreeViewItem}" x:Key="AutoDoomTreeViewItemStyle">
+
+        <DataTemplate x:Key="HeaderTemplate">
+            <Grid>
+                <Label Name="Label" Content="{Binding}" VerticalContentAlignment="Center" Foreground="White"/>
+            </Grid>
+        </DataTemplate>
+
+        <Style TargetType="TreeViewItem" x:Key="AutoDoomTreeViewItemStyle">
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="IsExpanded" Value="False"/>
+            <Setter Property="IsExpanded" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TreeViewItem">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition MinWidth="25" Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical">
+                            <Border x:Name="Bd">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MinWidth="25" Width="Auto" x:Name="ToggleColumn"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <ToggleButton x:Name="Expander" Style="{StaticResource ToggleButtonStyle}" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            <Border Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Center">
-                                <ContentPresenter ContentSource="Header"/>
+                                    <ToggleButton Panel.ZIndex="2" x:Name="Expander" Style="{StaticResource ToggleButtonStyle}" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <Border x:Name="Header" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="25">
+                                        <ContentPresenter x:Name="PART_Header" ContentSource="Header" ContentTemplate="{StaticResource HeaderTemplate}"/>
+                                    </Border>
+                                </Grid>
                             </Border>
-                            <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
-                        </Grid>
+
+                            <ItemsPresenter x:Name="ItemsHost" HorizontalAlignment="Stretch" />
+                        </StackPanel>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsExpanded" Value="False">
@@ -73,6 +78,11 @@
                             <Trigger Property="HasItems" Value="False">
                                 <Setter TargetName="Expander" Property="Visibility" Value="Hidden"/>
                             </Trigger>
+
+                            <Trigger SourceName="PART_Header" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="Black"/>
+                            </Trigger>
+
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -122,7 +132,7 @@
         </TextBlock>
         <TreeView x:Name="PART_Tools" Background="Transparent" Grid.Row="1" BorderThickness="0" Margin="0">
             <TreeView.Resources>
-                <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource AutoDoomTreeViewItemStyle}"/>
+                <Style TargetType="TreeViewItem" BasedOn="{StaticResource AutoDoomTreeViewItemStyle}"/>
             </TreeView.Resources>
             <TreeViewItem Header="Basic">
                 <TreeViewItem Header="if"/>
