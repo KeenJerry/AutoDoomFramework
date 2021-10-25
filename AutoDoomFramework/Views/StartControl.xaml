@@ -44,7 +44,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="CreateProcessButton" Content="{Binding Path=Name}" Template="{StaticResource StartUpButtonTemplate}" Tag="Process" Height="50" Click="CreateProcessButton_Click"></Button>
+                                        <Button x:Name="CreateProcessButton" Content="{Binding Path=Name}" Template="{StaticResource StartUpButtonTemplate}" Tag="Process" Height="50"></Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

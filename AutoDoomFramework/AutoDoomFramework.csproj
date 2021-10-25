@@ -34,7 +34,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -119,6 +119,9 @@
       <HintPath>..\packages\Prism.Wpf.8.1.97\lib\net47\Prism.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Activities.Presentation" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -175,8 +178,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\Events\EditorLoadedEvent.cs" />
+    <Compile Include="Common\Tools\ActivityLoader.cs" />
     <Compile Include="Common\Tools\LRU.cs" />
+    <Compile Include="Common\Tools\TreeViewHeaderConverter.cs" />
+    <Compile Include="Common\Tools\TreeViewLeftMarginConverter.cs" />
+    <Compile Include="Models\ToolBox\DActivity.cs" />
+    <Compile Include="Models\ToolBox\DActivityCategory.cs" />
     <Compile Include="Models\Registry.cs" />
+    <Compile Include="Services\Interfaces\IActivityService.cs" />
+    <Compile Include="Services\Providers\ActivityServiceImpl.cs" />
     <Compile Include="Services\Providers\AppServiceImpl.cs" />
     <Compile Include="Services\Interfaces\IAppService.cs" />
     <Compile Include="Services\Interfaces\ICacheService.cs" />
@@ -358,18 +368,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\activity.png" />
-    <Content Include="Assets\Images\bx-folder.png">
+    <Resource Include="Assets\Images\bx-folder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Images\doom.png">
+    </Resource>
+    <Resource Include="Assets\Images\doom.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
     <Resource Include="Assets\Images\project.png" />
     <Resource Include="Assets\Images\property.png" />
     <Resource Include="Assets\Images\output.png" />
-    <Content Include="Assets\Images\save.png">
+    <Resource Include="Assets\Images\if.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include="Assets\Images\save.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
@@ -385,6 +398,31 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Resources\Workflow\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\while.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\statemachine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\sequence.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\assign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\delay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\dowhile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\writeline.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,6 +7,8 @@
         xmlns:icons="clr-namespace:AutoDoomFramework.Views.Icons"
         xmlns:tools="clr-namespace:AutoDoomFramework.Common.Tools"
         xmlns:avalon="https://github.com/Dirkster99/AvalonDock"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:sapt="clr-namespace:System.Activities.Presentation.Toolbox;assembly=System.Activities.Presentation"
         mc:Ignorable="d"
         Title="EditorWindow" Height="600" Width="1080" WindowStyle="None">
@@ -123,12 +125,10 @@
                                 </avalon:LayoutAnchorGroup>
                                 <avalon:LayoutAnchorGroup>
                                     <avalon:LayoutAnchorable Title="Activities" AutoHideWidth="200" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/activity.png">
-                                        
                                         <Grid VerticalAlignment="Top">
                                             <local:ToolBoxControl>
                                             </local:ToolBoxControl>
                                         </Grid>
-                                        
                                     </avalon:LayoutAnchorable>
                                 </avalon:LayoutAnchorGroup>
                             </avalon:LayoutAnchorSide>

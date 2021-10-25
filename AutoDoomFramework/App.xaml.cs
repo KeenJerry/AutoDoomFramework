@@ -31,6 +31,7 @@ namespace AutoDoomFramework
         {
             containerRegistry.RegisterSingleton<IAppService, AppServiceImpl>();
             containerRegistry.RegisterSingleton<ICacheService, CacheServiceImpl>();
+            containerRegistry.RegisterSingleton<IActivityService, ActivityServiceImpl>();
         }
     }
 }

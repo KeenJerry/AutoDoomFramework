@@ -8,6 +8,7 @@ namespace AutoDoomFramework.Models
 {
     class DProcess: Registry
     {
+        private List<string> Dependencies = new List<string> { "System.Activities" };
 
         public DProcess(string Name, string Location) : base(Name, Location)
         {

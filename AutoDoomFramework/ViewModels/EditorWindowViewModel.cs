@@ -1,4 +1,6 @@
-﻿using AutoDoomFramework.Services.Interfaces;
+﻿using AutoDoomFramework.Models;
+using AutoDoomFramework.Models.ToolBox;
+using AutoDoomFramework.Services.Interfaces;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ namespace AutoDoomFramework.ViewModels
     class EditorWindowViewModel: BindableBase
     {
         private readonly ICacheService cacheService;
+        private readonly IActivityService activityService;
 
         private string registryName;
         public string RegistryName
@@ -23,10 +26,23 @@ namespace AutoDoomFramework.ViewModels
             }
         }
 
-        public EditorWindowViewModel(ICacheService cacheService)
+        public List<DActivityCategory> DActivityCategories
+        {
+            get => activityService.GetAllActivities();
+            set
+            {
+                RaisePropertyChanged(nameof(DActivityCategories));
+            }
+        }
+
+        public EditorWindowViewModel(ICacheService cacheService, IActivityService activityService)
         {
             this.cacheService = cacheService;
+            this.activityService = activityService;
+
             RegistryName = cacheService.GetWorkingRegistryName();
+
+            activityService.LoadDefaultActivities();
         }
     }
 }

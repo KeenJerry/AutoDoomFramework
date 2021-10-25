@@ -11,5 +11,6 @@ namespace AutoDoomFramework.Services.Interfaces
         string GetInstallLocation();
 
         string GetRegistryLocation();
+
     }
 }
