@@ -44,7 +44,7 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Button x:Name="CreateProcessButton" Content="{Binding Path=Name}" Template="{StaticResource StartUpButtonTemplate}" Tag="Process" Height="50"></Button>
+                                        <Button x:Name="OpenRecentProjectButton" Content="{Binding Path=Name}" Uid="{Binding UId}" Template="{StaticResource StartUpButtonTemplate}" Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.LoadEditorCommand }" CommandParameter="{Binding UId}" Click="OpenRecentProjectButton_Click" Tag="{Binding Type}" Height="50"></Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

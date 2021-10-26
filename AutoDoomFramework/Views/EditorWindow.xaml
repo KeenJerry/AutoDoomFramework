@@ -11,7 +11,7 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:sapt="clr-namespace:System.Activities.Presentation.Toolbox;assembly=System.Activities.Presentation"
         mc:Ignorable="d"
-        Title="EditorWindow" Height="600" Width="1080" WindowStyle="None">
+        Title="EditorWindow" Height="600" Width="1080" WindowStyle="None" MinHeight="400" MinWidth="600">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="10"/>
     </WindowChrome.WindowChrome>
@@ -120,7 +120,8 @@
                         <avalon:LayoutRoot.LeftSide>
                             <avalon:LayoutAnchorSide>
                                 <avalon:LayoutAnchorGroup>
-                                    <avalon:LayoutAnchorable Title="Project" AutoHideWidth="100" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/project.png">
+                                    <avalon:LayoutAnchorable Title="Project" AutoHideWidth="200" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/project.png">
+                                        <local:RegistryControl/>
                                     </avalon:LayoutAnchorable>
                                 </avalon:LayoutAnchorGroup>
                                 <avalon:LayoutAnchorGroup>
@@ -137,7 +138,7 @@
                         <avalon:LayoutPanel>
                             <avalon:LayoutDocumentPaneGroup>
                                 <avalon:LayoutDocumentPane>
-                                    <avalon:LayoutDocument Title="Main">
+                                    <avalon:LayoutDocument Title="Main" x:Name="Main">
                                     </avalon:LayoutDocument>
                                 </avalon:LayoutDocumentPane>
                             </avalon:LayoutDocumentPaneGroup>

@@ -72,7 +72,6 @@ namespace AutoDoomFramework.Views
 
         private void OpenEditorButton_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
             LoadingWindow loadingWindow = new LoadingWindow();
             loadingWindow.Owner = this.Owner;
             loadingWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;

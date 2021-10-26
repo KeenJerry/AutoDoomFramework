@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AutoDoomFramework.Views.Icons
+namespace AutoDoomFramework.Views
 {
     /// <summary>
-    /// Interaction logic for SaveAllIcon.xaml
+    /// Interaction logic for RegistryControl.xaml
     /// </summary>
-    public partial class SaveAllIcon : UserControl
+    public partial class RegistryControl : UserControl
     {
-        public SaveAllIcon()
+        public RegistryControl()
         {
             InitializeComponent();
         }

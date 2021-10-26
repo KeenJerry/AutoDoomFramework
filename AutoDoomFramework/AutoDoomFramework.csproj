@@ -178,10 +178,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\Events\EditorLoadedEvent.cs" />
+    <Compile Include="Common\Events\InitalProcessFailedEvent.cs" />
     <Compile Include="Common\Tools\ActivityLoader.cs" />
     <Compile Include="Common\Tools\LRU.cs" />
+    <Compile Include="Common\Tools\MD5Encoder.cs" />
     <Compile Include="Common\Tools\TreeViewHeaderConverter.cs" />
     <Compile Include="Common\Tools\TreeViewLeftMarginConverter.cs" />
+    <Compile Include="Models\Project\Config.cs" />
+    <Compile Include="Models\Project\Dependency.cs" />
+    <Compile Include="Models\Project\DependencyCollection.cs" />
+    <Compile Include="Models\Project\Folder.cs" />
+    <Compile Include="Models\Project\FolderCollection.cs" />
+    <Compile Include="Models\Project\Workflow.cs" />
+    <Compile Include="Models\Project\WorkflowCollection.cs" />
     <Compile Include="Models\ToolBox\DActivity.cs" />
     <Compile Include="Models\ToolBox\DActivityCategory.cs" />
     <Compile Include="Models\Registry.cs" />
@@ -224,6 +233,9 @@
     </Compile>
     <Compile Include="Views\LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegistryControl.xaml.cs">
+      <DependentUpon>RegistryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
@@ -318,6 +330,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RegistryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

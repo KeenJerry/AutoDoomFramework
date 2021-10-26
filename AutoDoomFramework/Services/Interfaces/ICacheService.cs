@@ -20,5 +20,11 @@ namespace AutoDoomFramework.Services.Interfaces
         void SetWorkingRegistry(ref Registry registry);
 
         string GetWorkingRegistryName();
+
+        bool InitialProjectFiles(ref Registry registry);
+
+        Registry FindRegistry(string uId);
+
+        ref Registry GetWorkingRegistry();
     }
 }

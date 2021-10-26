@@ -26,6 +26,22 @@ namespace AutoDoomFramework.ViewModels
             }
         }
 
+        public ref Registry WorkingRegistry
+        {
+            get
+            {
+                return ref cacheService.GetWorkingRegistry();
+            }
+        }
+
+        public List<Registry> Registries
+        {
+            get
+            {
+                return new List<Registry> { WorkingRegistry };
+            }
+        }
+
         public List<DActivityCategory> DActivityCategories
         {
             get => activityService.GetAllActivities();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoDoomFramework.Common.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,27 @@ namespace AutoDoomFramework.Models
 {
     class Registry
     {
+        // Registry Id
+        private string uId;
+        [JsonPropertyName("UId")]
+        public string UId { get; set; }
+
+        // Registry Type
+        private string type;
+        [JsonPropertyName("Type")]
+        public string Type { get; set; }
+
         // Registry name
-        
         private string name;
         [JsonPropertyName("Name")]
         public string Name
         {
             get => name;
-            set => name = value;
+            set 
+            {
+                name = value;
+                UId = MD5Encoder.Encode(name + Location);
+            }
         }
 
         // Registry folder path
@@ -25,7 +39,11 @@ namespace AutoDoomFramework.Models
         public string Location
         {
             get => location;
-            set => location = value;
+            set
+            {
+                location = value;
+                UId = MD5Encoder.Encode(Name + location);
+            }
         }
 
         // Registry description
@@ -37,17 +55,21 @@ namespace AutoDoomFramework.Models
             set => description = value;
         }
 
-        
-        public Registry(string Name, string Location)
+        public Registry() { }
+
+        public Registry(string Name, string Location, string Type)
         {
-            name = Name;
-            location = Location;
-            description = "";
+            UId = MD5Encoder.Encode(Name + Location);
+            this.Type = Type;
+            this.Name = Name;
+            this.Location = Location;
+            this.Description = "";
         }
-        
-        [JsonConstructor]
-        public Registry(string Name, string Location, string Description)
+
+        public Registry(string Name, string Location, string Type, string Description)
         {
+            UId = MD5Encoder.Encode(Name + Location);
+            this.Type = Type;
             this.Name = Name;
             this.Location = Location;
             this.Description = Description;

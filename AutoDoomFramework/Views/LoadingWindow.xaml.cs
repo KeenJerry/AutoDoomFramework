@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,6 +31,12 @@ namespace AutoDoomFramework.Views
             this.Owner.Close();
 
             editorWindow.Show();
+        }
+
+        public void OnInitialProcessFailed()
+        {
+            this.Owner.Show();
+            this.Close();
         }
     }
 }

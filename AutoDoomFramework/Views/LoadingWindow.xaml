@@ -15,13 +15,17 @@
 
     <Grid Background="{StaticResource LoadingBackground}">
         <Border BorderBrush="{StaticResource LightBorder}" BorderThickness="1">
-            <Label Foreground="{StaticResource LightGrey}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic" Content="Loading program..." >
+            <Label Name="OutInfo" Foreground="{StaticResource LightGrey}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center" FontStyle="Italic" Content="{Binding Details}" >
             </Label>
         </Border>
 
         <i:Interaction.Triggers>
             <i:DataTrigger Binding="{Binding Path=Loaded}" Value="True">
                 <i:CallMethodAction TargetObject="{Binding ElementName=parent}" MethodName="OnEditorLoaded"/>
+            </i:DataTrigger>
+
+            <i:DataTrigger Binding="{Binding Path=InitialProcessFailed}" Value="True">
+                <i:CallMethodAction TargetObject="{Binding ElementName=parent}" MethodName="OnInitialProcessFailed"/>
             </i:DataTrigger>
         </i:Interaction.Triggers>
     </Grid>

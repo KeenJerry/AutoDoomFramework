@@ -33,5 +33,14 @@ namespace AutoDoomFramework.Views
             createProcessWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             createProcessWindow.ShowDialog();
         }
+
+        private void OpenRecentProjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadingWindow loadingWindow = new LoadingWindow();
+            loadingWindow.Owner = Window.GetWindow(this);
+            loadingWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            loadingWindow.Owner.Hide();
+            loadingWindow.Show();
+        }
     }
 }

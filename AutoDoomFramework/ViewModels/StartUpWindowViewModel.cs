@@ -8,6 +8,12 @@ using Prism.Mvvm;
 using Prism.Commands;
 using AutoDoomFramework.Services.Interfaces;
 using AutoDoomFramework.Models;
+using System.Threading;
+using System.IO;
+using AutoDoomFramework.Common.Events;
+using Prism.Events;
+using System.Text.Json;
+using AutoDoomFramework.Models.Project;
 
 namespace AutoDoomFramework.ViewModels
 {
@@ -21,6 +27,7 @@ namespace AutoDoomFramework.ViewModels
     internal class StartUpWindowViewModel : BindableBase
     {
         private ICacheService cacheService;
+        private IEventAggregator eventAggregator;
 
         private bool startChecked = true;
         public bool StartChecked
@@ -99,12 +106,15 @@ namespace AutoDoomFramework.ViewModels
             }
         }
 
-        public StartUpWindowViewModel(ICacheService cacheService)
+        public StartUpWindowViewModel(ICacheService cacheService, IEventAggregator eventAggregator)
         {
             this.cacheService = cacheService;
+            this.eventAggregator = eventAggregator;
+
             cacheService.LoadRecentRegistry();
 
             CheckCommand = new DelegateCommand<string>(Check, CanCheck);
+            LoadEditorCommand = new DelegateCommand<string>(LoadEditor);
         }
 
         // Delegate command
@@ -148,6 +158,39 @@ namespace AutoDoomFramework.ViewModels
         private bool CanCheck(string function)
         {
             return true;
+        }
+
+        public DelegateCommand<string> LoadEditorCommand { get; private set; }
+        private void LoadEditor(string uId)
+        {
+            Thread loadEditorThread = new Thread(() =>
+            {
+                Registry registry = cacheService.FindRegistry(uId);
+                if (!(registry is null))
+                {
+                    switch (registry.Type)
+                    {
+                        case "Process":
+                            {
+                                string configFileContent = File.ReadAllText(Path.Combine(registry.Location, registry.Name, Config.ConfigFileName));
+                                
+                                Registry dProcess = JsonSerializer.Deserialize<DProcess>(configFileContent);
+                                cacheService.SetWorkingRegistry(ref dProcess);
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+                    
+                    cacheService.AddRegistry(ref registry);
+                    cacheService.FlushToCache();
+                    eventAggregator.GetEvent<EditorLoadedEvent>().Publish();
+                }
+            });
+
+            loadEditorThread.Start();
         }
     }
 }

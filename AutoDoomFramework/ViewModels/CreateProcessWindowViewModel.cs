@@ -71,9 +71,16 @@ namespace AutoDoomFramework.ViewModels
         public DelegateCommand LoadEditorCommand { get; private set; }
         private void LoadEditor()
         {
-            Thread loadingThread = new Thread(() => {
+            Thread loadingThread = new Thread(() =>
+            {
                 cacheService.SetWorkingRegistry(ref process);
-                //Thread.Sleep(3000);
+                if (!cacheService.InitialProjectFiles(ref process))
+                {
+                    eventAggregator.GetEvent<InitalProcessFailedEvent>().Publish("File already exists in selected location");
+                    return;
+                }
+                cacheService.AddRegistry(ref process);
+                cacheService.FlushToCache();
                 eventAggregator.GetEvent<EditorLoadedEvent>().Publish();
             });
 

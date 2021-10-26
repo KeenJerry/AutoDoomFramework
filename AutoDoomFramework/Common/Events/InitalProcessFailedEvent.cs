@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoDoomFramework.Common.Events
 {
-    class EditorLoadedEvent: PubSubEvent
+    class InitalProcessFailedEvent : PubSubEvent<string>
     {
-
     }
 }
