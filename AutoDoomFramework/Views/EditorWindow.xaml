@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoDoomFramework.Views"
         xmlns:icons="clr-namespace:AutoDoomFramework.Views.Icons"
-        xmlns:tools="clr-namespace:AutoDoomFramework.Common.Tools"
         xmlns:avalon="https://github.com/Dirkster99/AvalonDock"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        xmlns:sapt="clr-namespace:System.Activities.Presentation.Toolbox;assembly=System.Activities.Presentation"
+        xmlns:sapt="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation/toolbox"
         mc:Ignorable="d"
         Title="EditorWindow" Height="600" Width="1080" WindowStyle="None" MinHeight="400" MinWidth="600" Language="en-us">
     <WindowChrome.WindowChrome>
@@ -118,7 +117,7 @@
                                        >
                     <avalon:DockingManager.DocumentHeaderTemplate>
                         <DataTemplate DataType="{x:Type Border}">
-                            <TextBlock Text="{Binding Tag}"/>
+                            <TextBlock Text="{Binding Content.Tag}"/>
                         </DataTemplate>
                     </avalon:DockingManager.DocumentHeaderTemplate>
                     <avalon:DockingManager.Theme>

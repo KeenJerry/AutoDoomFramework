@@ -10,6 +10,8 @@ using AutoDoomFramework.Common.Tools;
 using AutoDoomFramework.Models;
 using AutoDoomFramework.Services.Interfaces;
 using AutoDoomFramework.Models.Project;
+using System.Activities.Presentation;
+using System.Activities.Statements;
 
 namespace AutoDoomFramework.Services.Providers
 {
@@ -82,11 +84,19 @@ namespace AutoDoomFramework.Services.Providers
                             }
                         }
 
+                        // Create project directory
                         Directory.CreateDirectory(Path.Combine(process.Location, process.Name));
                         
+                        // Create workflow files
                         foreach (Workflow workflow in process.WorkflowCollection.Workflows)
                         {
-                            File.Create(Path.Combine(process.Location, process.Name, workflow.FileName));
+                            App.Current.Dispatcher.Invoke(() =>
+                            {
+                                WorkflowDesigner wf = new WorkflowDesigner();
+                                Sequence sequence = new Sequence();
+                                wf.Load(sequence);
+                                wf.Save(Path.Combine(process.Location, process.Name, workflow.FileName));
+                            });
                         }
                         using (FileStream projectJson = File.Create(Path.Combine(process.Location, process.Name, Config.ConfigFileName)))
                         {

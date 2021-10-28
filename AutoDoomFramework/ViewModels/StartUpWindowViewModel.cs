@@ -27,6 +27,7 @@ namespace AutoDoomFramework.ViewModels
     internal class StartUpWindowViewModel : BindableBase
     {
         private ICacheService cacheService;
+        private IResourceService resourceService;
         private IEventAggregator eventAggregator;
 
         private bool startChecked = true;
@@ -106,9 +107,10 @@ namespace AutoDoomFramework.ViewModels
             }
         }
 
-        public StartUpWindowViewModel(ICacheService cacheService, IEventAggregator eventAggregator)
+        public StartUpWindowViewModel(ICacheService cacheService, IResourceService resourceService, IEventAggregator eventAggregator)
         {
             this.cacheService = cacheService;
+            this.resourceService = resourceService;
             this.eventAggregator = eventAggregator;
 
             cacheService.LoadRecentRegistry();
@@ -186,6 +188,11 @@ namespace AutoDoomFramework.ViewModels
                     
                     cacheService.AddRegistry(ref registry);
                     cacheService.FlushToCache();
+
+                    // Do loading staff;
+                    resourceService.LoadWorkflowDesignerResource();
+
+
                     eventAggregator.GetEvent<EditorLoadedEvent>().Publish();
                 }
             });

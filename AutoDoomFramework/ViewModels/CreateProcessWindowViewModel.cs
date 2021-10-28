@@ -20,6 +20,7 @@ namespace AutoDoomFramework.ViewModels
     class CreateProcessWindowViewModel: BindableBase
     {
         private readonly ICacheService cacheService;
+        private readonly IResourceService resourceService;
         private readonly IEventAggregator eventAggregator;
 
         private Registry process = new DProcess("BlankProcess", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
@@ -81,6 +82,10 @@ namespace AutoDoomFramework.ViewModels
                 }
                 cacheService.AddRegistry(ref process);
                 cacheService.FlushToCache();
+
+                // Do loading staff;
+                resourceService.LoadWorkflowDesignerResource();
+
                 eventAggregator.GetEvent<EditorLoadedEvent>().Publish();
             });
 
@@ -95,6 +100,7 @@ namespace AutoDoomFramework.ViewModels
             LoadEditorCommand = new DelegateCommand(LoadEditor);
 
             cacheService = container.Resolve<ICacheService>();
+            resourceService = container.Resolve<IResourceService>();
             this.eventAggregator = eventAggregator;
         }
     }

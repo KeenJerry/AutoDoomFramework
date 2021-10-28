@@ -30,7 +30,6 @@ namespace AutoDoomFramework.Services.Providers
         public DActivityCategory LoadDefaultActivities()
         {
             DActivityCategory dActivityCategory = new DActivityCategory("System");
-            DActivityCategory controlCategory = new DActivityCategory("Control");
 
             Assembly defaultAssembly = FindDefaultActivityAssembly();
             if (defaultAssembly is null)
@@ -48,7 +47,7 @@ namespace AutoDoomFramework.Services.Providers
                         {
                             case "If":
                                 {
-                                    controlCategory.AddActivity(new DActivity(t, new BitmapImage(new Uri(@"/Assets/Images/if.png", UriKind.Relative)), "System.Activity"));
+                                    dActivityCategory.AddActivity(new DActivity(t, new BitmapImage(new Uri(@"/Assets/Images/if.png", UriKind.Relative)), "System.Activity"));
                                     break;
                                 }
 
@@ -104,7 +103,6 @@ namespace AutoDoomFramework.Services.Providers
                 }
             }
 
-            dActivityCategory.AddCategory(controlCategory);
             toolsTree.Add(dActivityCategory);
             return dActivityCategory;
         }
