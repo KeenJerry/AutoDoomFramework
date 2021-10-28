@@ -9,7 +9,7 @@ namespace AutoDoomFramework.Models.Project
 {
     class FolderCollection
     {
-        private List<Folder> folders;
+        private List<Folder> folders = new List<Folder>();
         public List<Folder> Folders
         {
             get => folders;

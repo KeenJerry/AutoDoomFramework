@@ -11,7 +11,7 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:sapt="clr-namespace:System.Activities.Presentation.Toolbox;assembly=System.Activities.Presentation"
         mc:Ignorable="d"
-        Title="EditorWindow" Height="600" Width="1080" WindowStyle="None" MinHeight="400" MinWidth="600">
+        Title="EditorWindow" Height="600" Width="1080" WindowStyle="None" MinHeight="400" MinWidth="600" Language="en-us">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="10"/>
     </WindowChrome.WindowChrome>
@@ -108,11 +108,19 @@
                     </TabItem>
 
                     <TabItem Header="OTHER" IsSelected="False" Height="30" FontSize="13">
-                        ddddd
                     </TabItem>
                 </TabControl>
 
-                <avalon:DockingManager x:Name="EditorDockingManager" Grid.Row="1" AnchorableHeaderTemplate="{StaticResource AutoDoomAnchorableTitleTemplate}">
+                <avalon:DockingManager x:Name="EditorDockingManager" Grid.Row="1"
+                                       AnchorableHeaderTemplate="{StaticResource AutoDoomAnchorableTitleTemplate}" 
+                                       AllowMixedOrientation="True"
+                                       DocumentsSource="{Binding WorkflowDesigners}"
+                                       >
+                    <avalon:DockingManager.DocumentHeaderTemplate>
+                        <DataTemplate DataType="{x:Type Border}">
+                            <TextBlock Text="{Binding Tag}"/>
+                        </DataTemplate>
+                    </avalon:DockingManager.DocumentHeaderTemplate>
                     <avalon:DockingManager.Theme>
                         <avalon:Vs2013DarkTheme/>
                     </avalon:DockingManager.Theme>
@@ -120,12 +128,12 @@
                         <avalon:LayoutRoot.LeftSide>
                             <avalon:LayoutAnchorSide>
                                 <avalon:LayoutAnchorGroup>
-                                    <avalon:LayoutAnchorable Title="Project" AutoHideWidth="200" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/project.png">
+                                    <avalon:LayoutAnchorable Title="Project" AutoHideWidth="200" AutoHideMinWidth="200" CanHide="False" FloatingWidth="200" FloatingHeight="400" CanShowOnHover="False" CanDockAsTabbedDocument="False" IconSource="/Assets/Images/project.png">
                                         <local:RegistryControl/>
                                     </avalon:LayoutAnchorable>
                                 </avalon:LayoutAnchorGroup>
                                 <avalon:LayoutAnchorGroup>
-                                    <avalon:LayoutAnchorable Title="Activities" AutoHideWidth="200" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/activity.png">
+                                    <avalon:LayoutAnchorable Title="Activities" AutoHideWidth="200" AutoHideMinWidth="200" CanHide="False"  FloatingWidth="200" FloatingHeight="400" CanShowOnHover="False" CanDockAsTabbedDocument="False" IconSource="/Assets/Images/activity.png">
                                         <Grid VerticalAlignment="Top">
                                             <local:ToolBoxControl>
                                             </local:ToolBoxControl>
@@ -137,12 +145,18 @@
 
                         <avalon:LayoutPanel>
                             <avalon:LayoutDocumentPaneGroup>
-                                <avalon:LayoutDocumentPane>
-                                    <avalon:LayoutDocument Title="Main" x:Name="Main">
-                                    </avalon:LayoutDocument>
+                                <avalon:LayoutDocumentPane x:Name="WorkingArea">
                                 </avalon:LayoutDocumentPane>
                             </avalon:LayoutDocumentPaneGroup>
                         </avalon:LayoutPanel>
+
+                        <avalon:LayoutRoot.BottomSide>
+                            <avalon:LayoutAnchorSide>
+                                <avalon:LayoutAnchorGroup>
+                                    <avalon:LayoutAnchorable Title="Output" CanHide="False" CanShowOnHover="False" AutoHideHeight="200" IsSelected="True" IconSource="/Assets/Images/Output.png"/>
+                                </avalon:LayoutAnchorGroup>
+                            </avalon:LayoutAnchorSide>
+                        </avalon:LayoutRoot.BottomSide>
 
                         <avalon:LayoutRoot.RightSide>
                             <avalon:LayoutAnchorSide>
@@ -152,16 +166,8 @@
                             </avalon:LayoutAnchorSide>
                         </avalon:LayoutRoot.RightSide>
 
-                        <avalon:LayoutRoot.BottomSide>
-                            <avalon:LayoutAnchorSide>
-                                <avalon:LayoutAnchorGroup>
-                                    <avalon:LayoutAnchorable Title="Output" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/Output.png"/>
-                                </avalon:LayoutAnchorGroup>
-                            </avalon:LayoutAnchorSide>
-                        </avalon:LayoutRoot.BottomSide>
                     </avalon:LayoutRoot>
                 </avalon:DockingManager>
-
                 <Border Grid.Row="2" Background="#1569BC" BorderThickness="0"/>
             </Grid>
             <Grid x:Name="TopBarGrid" VerticalAlignment="Top" Height="30" Panel.ZIndex="1" MouseDown="TopBarGrid_MouseDown" Margin="160 0 0 0">

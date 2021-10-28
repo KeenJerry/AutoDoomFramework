@@ -153,19 +153,56 @@
             <TreeView.Resources>
                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource AutoDoomTreeViewItemStyle}"/>
                 <HierarchicalDataTemplate DataType="{x:Type models:Registry}" ItemsSource="{Binding Items}">
-                    <TextBlock Text="{Binding Name}"/>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Images/registry.png"/>
+                            <TextBlock Text="{Binding Name}" Margin="5 0 0 0" Padding="0"/>
+                        </StackPanel>
+                    </Grid>
+                </HierarchicalDataTemplate>
+
+                <HierarchicalDataTemplate DataType="{x:Type projects:Folder}">
+                    <TextBlock Text="{Binding FolderName}"/>
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type projects:Workflow}">
-                    <TextBlock Text="{Binding FileName}"/>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Images/workflow.png"/>
+                            <Label Content="{Binding FileName}" Margin="5 0 0 0" Foreground="White" Padding="0" >
+                                <Label.InputBindings>
+                                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=DataContext.OpenMainXamlCommand, RelativeSource={RelativeSource AncestorType=TreeView}}"/>
+                                </Label.InputBindings>
+                                <Label.Style>
+                                    <Style TargetType="{x:Type Label}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsMain}" Value="true">
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </StackPanel>
+                    </Grid>
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type projects:Config}">
-                    <TextBlock Text="{Binding ConfigFileName}"/>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Images/config.png"/>
+                            <TextBlock Text="{Binding ConfigFileName}" Margin="5 0 0 0" Padding="0"/>
+                        </StackPanel>
+                    </Grid>
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type projects:DependencyCollection}" ItemsSource="{Binding Dependencies}">
-                    <TextBlock Text="{Binding CollectionName}"/>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/Images/dependencies.png"/>
+                            <TextBlock Text="{Binding CollectionName}" Margin="5 0 0 0" Padding="0"/>
+                        </StackPanel>
+                    </Grid>
                 </HierarchicalDataTemplate>
 
                 <HierarchicalDataTemplate DataType="{x:Type projects:Dependency}">

@@ -32,7 +32,7 @@ namespace AutoDoomFramework.Models
             set => workflowCollection = value;
         }
 
-        private FolderCollection folderCollection;
+        private FolderCollection folderCollection = new FolderCollection();
         public FolderCollection FolderCollection
         {
             get => folderCollection;
@@ -53,7 +53,7 @@ namespace AutoDoomFramework.Models
                 items.Clear();
                 items.Add(Config);
                 items.AddRange(WorkflowCollection.Workflows);
-                //items.Add(FolderCollection);
+                items.AddRange(FolderCollection.Folders);
                 items.Add(DependencyCollection);
                 return items;
             }
