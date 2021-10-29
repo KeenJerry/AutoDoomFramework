@@ -80,6 +80,7 @@ namespace AutoDoomFramework.ViewModels
                     eventAggregator.GetEvent<InitalProcessFailedEvent>().Publish("File already exists in selected location");
                     return;
                 }
+
                 cacheService.AddRegistry(ref process);
                 cacheService.FlushToCache();
 

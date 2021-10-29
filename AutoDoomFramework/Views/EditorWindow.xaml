@@ -6,13 +6,14 @@
         xmlns:local="clr-namespace:AutoDoomFramework.Views"
         xmlns:icons="clr-namespace:AutoDoomFramework.Views.Icons"
         xmlns:avalon="https://github.com/Dirkster99/AvalonDock"
+        xmlns:tools="clr-namespace:AutoDoomFramework.Common.Tools"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:sapt="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation/toolbox"
         mc:Ignorable="d"
         Title="EditorWindow" Height="600" Width="1080" WindowStyle="None" MinHeight="400" MinWidth="600" Language="en-us">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0" ResizeBorderThickness="10"/>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
 
     <Window.Resources>
@@ -63,7 +64,7 @@
                                 <RowDefinition Height="76"/>
                             </Grid.RowDefinitions>
                             
-                            <local:FunctionButton x:Name="SaveFunctionButton" PopupContent="Save">
+                            <local:FunctionButton x:Name="SaveFunctionButton" PopupContent="Save" Loaded="SaveFunctionButton_Loaded">
                                 <local:FunctionButton.ButtonContent>
                                     <icons:SaveIcon />
                                 </local:FunctionButton.ButtonContent>
@@ -97,7 +98,7 @@
                                     <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
                                         <StackPanel Orientation="Horizontal">
                                             <icons:DebugIcon/>
-                                            <Label Content="Debug" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            <Label Content="Debugddddddddddddddddddddddddddddddddd" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </local:FunctionButton.PopupItems>
@@ -111,10 +112,15 @@
                 </TabControl>
 
                 <avalon:DockingManager x:Name="EditorDockingManager" Grid.Row="1"
-                                       AnchorableHeaderTemplate="{StaticResource AutoDoomAnchorableTitleTemplate}" 
+                                       AnchorableHeaderTemplate="{StaticResource AutoDoomAnchorableTitleTemplate}"
                                        AllowMixedOrientation="True"
-                                       DocumentsSource="{Binding WorkflowDesigners}"
+                                       DocumentsSource="{Binding Documents}"
+                                       DocumentClosed="EditorDockingManager_DocumentClosed"
+                                       AnchorablesSource="{Binding Anchorables}"
                                        >
+                    <avalon:DockingManager.LayoutUpdateStrategy>
+                        <tools:ADLayoutUpdateStrategy/>
+                    </avalon:DockingManager.LayoutUpdateStrategy>
                     <avalon:DockingManager.DocumentHeaderTemplate>
                         <DataTemplate DataType="{x:Type Border}">
                             <TextBlock Text="{Binding Content.Tag}"/>
@@ -151,7 +157,7 @@
 
                         <avalon:LayoutRoot.BottomSide>
                             <avalon:LayoutAnchorSide>
-                                <avalon:LayoutAnchorGroup>
+                                <avalon:LayoutAnchorGroup x:Name="BottomSideGroup">
                                     <avalon:LayoutAnchorable Title="Output" CanHide="False" CanShowOnHover="False" AutoHideHeight="200" IsSelected="True" IconSource="/Assets/Images/Output.png"/>
                                 </avalon:LayoutAnchorGroup>
                             </avalon:LayoutAnchorSide>
@@ -159,8 +165,9 @@
 
                         <avalon:LayoutRoot.RightSide>
                             <avalon:LayoutAnchorSide>
-                                <avalon:LayoutAnchorGroup>
-                                    <avalon:LayoutAnchorable Title="Properties" CanHide="False" CanShowOnHover="False" IconSource="/Assets/Images/property.png"/>
+                                <avalon:LayoutAnchorGroup x:Name="RightSideGroup">
+                                    <avalon:LayoutAnchorable Title="Properties" ContentId="Properties" x:Name="Properties" CanHide="False" AutoHideMinWidth="200" AutoHideWidth="200" CanShowOnHover="False" IconSource="/Assets/Images/property.png">
+                                    </avalon:LayoutAnchorable>
                                 </avalon:LayoutAnchorGroup>
                             </avalon:LayoutAnchorSide>
                         </avalon:LayoutRoot.RightSide>

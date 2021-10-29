@@ -1,6 +1,7 @@
 ﻿using AutoDoomFramework.Common.Tools;
 using AutoDoomFramework.Models;
 using AutoDoomFramework.Models.ToolBox;
+using AutoDoomFramework.Properties;
 using AutoDoomFramework.Services.Interfaces;
 using AvalonDock.Layout;
 using Prism.Commands;
@@ -71,46 +72,90 @@ namespace AutoDoomFramework.ViewModels
             }
         }
 
-        private ObservableCollection<Border> workflowDesigners = new ObservableCollection<Border>();
-        public ObservableCollection<Border> WorkflowDesigners
+        private List<WorkflowDesigner> workflowDesigners = new List<WorkflowDesigner>();
+
+        private ObservableCollection<Border> anchorables = new ObservableCollection<Border>();
+        public ObservableCollection<Border> Anchorables
         {
-            get => workflowDesigners;
+            get => anchorables;
+            private set { }
+        }
+
+        private ObservableCollection<Border> documents = new ObservableCollection<Border>();
+        public ObservableCollection<Border> Documents
+        {
+            get => documents;
             private set { }
         }
 
         public DelegateCommand<string> OpenWorkflowCommand { get; private set; }
         private void OpenWorkflow(string workflowName)
         {
-            if (WorkflowDesigners.Count != 0)
+            if (Documents.Count != 0)
             {
-                if (!(WorkflowDesigners.First(designer => (designer.Tag as string) == workflowName) is null))
+                if (!(Documents.First(designer => (designer.Tag as string) == workflowName) is null))
                 {
                     return;
                 }
             }
-            
+
             new DesignerMetadata().Register();
             WorkflowDesigner wf = new WorkflowDesigner
             {
-                Text = workflowName
+                Text = workflowName,
+                PropertyInspectorFontAndColorData = resourceService.GetWorkflowDesignerResource()
             };
 
             WorkflowDesignerIcons.UseWindowsStoreAppStyleIcons();
-            wf.PropertyInspectorFontAndColorData = resourceService.GetWorkflowDesignerResource();
 
-            Sequence sequence = new Sequence
-            {
-                DisplayName = SuffixCutter.Cut(workflowName, ".xaml")
-            };
+            wf.Context.Services.GetService<DesignerConfigurationService>().TargetFrameworkName = new System.Runtime.Versioning.FrameworkName(".NETFramework", new System.Version(4, 8));
             wf.Load(Path.Combine(cacheService.GetWorkingRegistry().Location, cacheService.GetWorkingRegistry().Name, workflowName));
 
-            Border border = new Border();
-            border.Child = wf.View;
+            Border viewBorder = new Border();
+            viewBorder.Child = wf.View;
+            viewBorder.Tag = workflowName;
 
-            border.Tag = workflowName;
+            if (Anchorables.Count == 0)
+            {
+                Border propertyBorder = new Border();
+                propertyBorder.Child = wf.PropertyInspectorView;
+                propertyBorder.Tag = "Properties";
+                Anchorables.Add(propertyBorder);
+            }
+            else
+            {
+                Border bd = Anchorables.First(border => (border.Tag as string) == "Properties");
+                if (bd is null)
+                {
+                    Border propertyBorder = new Border();
+                    propertyBorder.Child = wf.PropertyInspectorView;
+                    propertyBorder.Tag = "Properties";
+                    Anchorables.Add(propertyBorder);
+                }
+                else
+                {
+                    if (bd.Child == null)
+                    {
+                        bd.Child = wf.PropertyInspectorView;
+                    }
+                }
+            }
 
-            WorkflowDesigners.Add(border);
+            Documents.Add(viewBorder);
+            workflowDesigners.Add(wf);
+        }
 
+        public DelegateCommand<string> CloseWorkflowCommand { get; private set; }
+        private void CloseWorkflow(string workflowName)
+        {
+            Border viewBD = documents.First(border => (border.Tag as string) == workflowName);
+            Documents.Remove(viewBD);
+
+            Border propertyBD = anchorables.FirstOrDefault(border => (border.Tag as string) == "Properties");
+            propertyBD.Child = null;
+
+            WorkflowDesigner wd = workflowDesigners.First(workflowDesigner => workflowDesigner.Text == workflowName);
+            wd.Save(Path.Combine(cacheService.GetWorkingRegistry().Location, cacheService.GetWorkingRegistry().Name, workflowName));
         }
 
         public EditorWindowViewModel(ICacheService cacheService, IActivityService activityService, IResourceService resourceService)
@@ -124,6 +169,7 @@ namespace AutoDoomFramework.ViewModels
             activityService.LoadDefaultActivities();
 
             OpenWorkflowCommand = new DelegateCommand<string>(OpenWorkflow);
+            CloseWorkflowCommand = new DelegateCommand<string>(CloseWorkflow);
         }
     }
 }

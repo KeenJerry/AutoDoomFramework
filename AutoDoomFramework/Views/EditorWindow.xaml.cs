@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoDoomFramework.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,6 +55,18 @@ namespace AutoDoomFramework.Views
             {
                 DragMove();
             }
+        }
+
+        private void EditorDockingManager_DocumentClosed(object sender, AvalonDock.DocumentClosedEventArgs e)
+        {
+            e.Document.IsSelected = true;
+            EditorWindowViewModel viewModel = (EditorWindowViewModel)DataContext;
+            viewModel.CloseWorkflowCommand.Execute((e.Document.Content as Border).Tag as string);
+        }
+
+        private void SaveFunctionButton_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

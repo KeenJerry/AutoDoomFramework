@@ -93,7 +93,10 @@ namespace AutoDoomFramework.Services.Providers
                             App.Current.Dispatcher.Invoke(() =>
                             {
                                 WorkflowDesigner wf = new WorkflowDesigner();
-                                Sequence sequence = new Sequence();
+                                Sequence sequence = new Sequence
+                                {
+                                    DisplayName = "Main"
+                                };
                                 wf.Load(sequence);
                                 wf.Save(Path.Combine(process.Location, process.Name, workflow.FileName));
                             });

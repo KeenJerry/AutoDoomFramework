@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -53,6 +54,11 @@ namespace AutoDoomFramework.Views
         {
             SetValue(PopupItemsProperty, new List<Button>());
             InitializeComponent();
+        }
+
+        private void PART_Popup_Drop(object sender, DragEventArgs e)
+        {
+            (sender as Popup).HorizontalOffset = -10;
         }
     }
 }

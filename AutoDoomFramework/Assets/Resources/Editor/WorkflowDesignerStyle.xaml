@@ -4,9 +4,9 @@
                     xmlns:sapv="clr-namespace:System.Activities.Presentation.View;assembly=System.Activities.Presentation">
     <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementBorderColorKey}" x:Uid="SolidColorBrush_1" Color="#42444A" />
     <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementBackgroundColorKey}" x:Uid="SolidColorBrush_2" Color="#42444A" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementSelectedBackgroundColorKey}" x:Uid="SolidColorBrush_3" Color="#0062A3" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementSelectedBorderColorKey}" x:Uid="SolidColorBrush_4" Color="#0062A3" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementCaptionColorKey}" x:Uid="SolidColorBrush_8" Color="White" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementSelectedBackgroundColorKey}" x:Uid="SolidColorBrush_3" Color="#0098FF" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementSelectedBorderColorKey}" x:Uid="SolidColorBrush_4" Color="#0098FF" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementCaptionColorKey}" x:Uid="SolidColorBrush_8" Color="#9A9B9E" />
     <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.WorkflowViewElementSelectedCaptionColorKey}" Color="White" />
 
     <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.DesignerViewBackgroundColorKey}" x:Uid="SolidColorBrush_9" Color="#232325" />
@@ -43,33 +43,22 @@
     <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.FlowchartExpressionButtonMouseOverColorKey}" x:Uid="SolidColorBrush_35" Color="#373A3F" />
     <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.FlowchartExpressionButtonPressedColorKey}" x:Uid="SolidColorBrush_36" Color="#197FE4" />
     
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.OutlineViewItemTextColorKey}" Color="Black"/>
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.OutlineViewItemSelectedTextColorKey}" Color="Black"/>
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.OutlineViewItemHighlightBackgroundColorKey}" Color="Black"/>
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.OutlineViewExpandedArrowColorKey}" Color="Black"/>
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.OutlineViewExpandedArrowBorderColorKey}" Color="Black"/>
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.OutlineViewCollapsedArrowHoverBorderColorKey}" Color="Black"/>
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.OutlineViewCollapsedArrowBorderColorKey}" Color="Black"/>
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.OutlineViewBackgroundColorKey}" Color="Black"/>
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyToolBarHightlightedButtonForegroundColorKey}" Color="White"/>
 
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.AnnotationBackgroundGradientBeginColorKey}" Color="Black"/>
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorBackgroundBrushKey}" x:Uid="SolidColorBrush_40" Color="#252526" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorBorderBrushKey}" x:Uid="SolidColorBrush_41" Color="#252526" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorCategoryCaptionTextBrushKey}" x:Uid="SolidColorBrush_42" Color="White" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorPaneBrushKey}" x:Uid="SolidColorBrush_43" Color="#2D2F32" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorPopupBrushKey}" x:Uid="SolidColorBrush_44" Color="#2D2F32" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorSelectedBackgroundBrushKey}" x:Uid="SolidColorBrush_45" Color="#4C4F56" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorSelectedForegroundBrushKey}" x:Uid="SolidColorBrush_46" Color="White" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorTextBrushKey}" x:Uid="SolidColorBrush_47" Color="White" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarBackgroundBrushKey}" x:Uid="SolidColorBrush_48" Color="#252526" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarItemHoverBackgroundBrushKey}" x:Uid="SolidColorBrush_49" Color="#4C4F56" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarItemHoverBorderBrushKey}" x:Uid="SolidColorBrush_50" Color="#4C4F56" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarItemSelectedBackgroundBrushKey}" x:Uid="SolidColorBrush_51" Color="#4C4F56" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarItemSelectedBorderBrushKey}" x:Uid="SolidColorBrush_52" Color="#4C4F56" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarSeparatorBrushKey}" x:Uid="SolidColorBrush_52" Color="#4C4F56" />
+    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarTextBoxBorderBrushKey}" x:Uid="SolidColorBrush_53" Color="#858587" />
 
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyToolBarHightlightedButtonForegroundColorKey}" Color="Black"/>
-
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorBackgroundBrushKey}" x:Uid="SolidColorBrush_40" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorBorderBrushKey}" x:Uid="SolidColorBrush_41" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorCategoryCaptionTextBrushKey}" x:Uid="SolidColorBrush_42" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorPaneBrushKey}" x:Uid="SolidColorBrush_43" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorPopupBrushKey}" x:Uid="SolidColorBrush_44" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorSelectedBackgroundBrushKey}" x:Uid="SolidColorBrush_45" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorSelectedForegroundBrushKey}" x:Uid="SolidColorBrush_46" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorTextBrushKey}" x:Uid="SolidColorBrush_47" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarBackgroundBrushKey}" x:Uid="SolidColorBrush_48" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarItemHoverBackgroundBrushKey}" x:Uid="SolidColorBrush_49" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarItemHoverBorderBrushKey}" x:Uid="SolidColorBrush_50" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarItemSelectedBackgroundBrushKey}" x:Uid="SolidColorBrush_51" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarItemSelectedBorderBrushKey}" x:Uid="SolidColorBrush_52" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarSeparatorBrushKey}" x:Uid="SolidColorBrush_52" Color="Black" />
-    <SolidColorBrush x:Key="{x:Static sap:WorkflowDesignerColors.PropertyInspectorToolBarTextBoxBorderBrushKey}" x:Uid="SolidColorBrush_53" Color="Aqua" />
-    
 </ResourceDictionary>
