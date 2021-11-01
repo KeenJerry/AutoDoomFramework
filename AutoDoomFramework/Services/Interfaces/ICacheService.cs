@@ -23,6 +23,8 @@ namespace AutoDoomFramework.Services.Interfaces
 
         bool InitialProjectFiles(ref Registry registry);
 
+        void LoadAllWorkflowDesignerInProject(ref Registry registry);
+
         Registry FindRegistry(string uId);
 
         ref Registry GetWorkingRegistry();

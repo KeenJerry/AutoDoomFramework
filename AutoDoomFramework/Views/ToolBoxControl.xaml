@@ -162,9 +162,9 @@
 
                 <HierarchicalDataTemplate DataType="{x:Type toolbox:DActivity}">
                     <Grid>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Tag="{Binding TypeName}" MouseMove="StackPanel_MouseMove" >
                             <Image Source="{Binding Icon}"/>
-                            <TextBlock Text="{Binding TypeName.Name}" Margin="5 0 0 0" Padding="0"/>
+                            <TextBlock Text="{Binding TypeName.Name}" Margin="5 0 0 0" Padding="0" />
                         </StackPanel>
                     </Grid>
                 </HierarchicalDataTemplate>

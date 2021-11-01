@@ -177,6 +177,7 @@ namespace AutoDoomFramework.ViewModels
                                 string configFileContent = File.ReadAllText(Path.Combine(registry.Location, registry.Name, Config.ConfigFileName));
                                 
                                 Registry dProcess = JsonSerializer.Deserialize<DProcess>(configFileContent);
+                                cacheService.LoadAllWorkflowDesignerInProject(ref dProcess);
                                 cacheService.SetWorkingRegistry(ref dProcess);
                                 break;
                             }
@@ -191,6 +192,7 @@ namespace AutoDoomFramework.ViewModels
 
                     // Do loading staff;
                     resourceService.LoadWorkflowDesignerResource();
+                    
 
 
                     eventAggregator.GetEvent<EditorLoadedEvent>().Publish();

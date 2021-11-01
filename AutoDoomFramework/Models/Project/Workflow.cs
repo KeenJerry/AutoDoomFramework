@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities.Presentation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,13 @@ namespace AutoDoomFramework.Models.Project
         {
             get => fileName;
             set => fileName = value;
+        }
+
+        private WorkflowDesigner workflowDesigner;
+        public WorkflowDesigner Instance
+        {
+            get => workflowDesigner;
+            set => workflowDesigner = value;
         }
 
         public bool IsMain { get; set; }

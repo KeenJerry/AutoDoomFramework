@@ -86,7 +86,7 @@
 
                             <local:FunctionButton x:Name="RunFunctionButton" Grid.Column="2" PopupContent="Debug">
                                 <local:FunctionButton.ButtonContent>
-                                    <icons:RunIcon />
+                                    <icons:RunIcon MouseDown="RunIcon_MouseDown"/>
                                 </local:FunctionButton.ButtonContent>
                                 <local:FunctionButton.PopupItems>
                                     <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
@@ -98,7 +98,7 @@
                                     <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
                                         <StackPanel Orientation="Horizontal">
                                             <icons:DebugIcon/>
-                                            <Label Content="Debugddddddddddddddddddddddddddddddddd" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            <Label Content="Debug" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </local:FunctionButton.PopupItems>

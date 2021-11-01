@@ -12,6 +12,8 @@ using AutoDoomFramework.Services.Interfaces;
 using AutoDoomFramework.Models.Project;
 using System.Activities.Presentation;
 using System.Activities.Statements;
+using System.Threading;
+using System.Activities.Core.Presentation;
 
 namespace AutoDoomFramework.Services.Providers
 {
@@ -135,6 +137,29 @@ namespace AutoDoomFramework.Services.Providers
         public ref Registry GetWorkingRegistry()
         {
             return ref workingRegistry;
+        }
+
+        public void LoadAllWorkflowDesignerInProject(ref Registry registry)
+        {
+            switch (registry)
+            {
+                case DProcess dProcess:
+                    {
+                        foreach(Workflow workflow in dProcess.WorkflowCollection.Workflows)
+                        {
+                            App.Current.Dispatcher.Invoke(() =>
+                            {
+                                new DesignerMetadata().Register();
+                                WorkflowDesigner wf = new WorkflowDesigner();
+                                wf.Context.Services.GetService<DesignerConfigurationService>().TargetFrameworkName = new System.Runtime.Versioning.FrameworkName(".NETFramework", new System.Version(4, 8));
+                                WorkflowDesignerIcons.UseWindowsStoreAppStyleIcons();
+                                wf.Load(Path.Combine(dProcess.Location, dProcess.Name, workflow.FileName));
+                                workflow.Instance = wf;
+                            });
+                        }
+                        break;
+                    }
+            }
         }
 
         public CacheServiceImpl(IAppService appService)

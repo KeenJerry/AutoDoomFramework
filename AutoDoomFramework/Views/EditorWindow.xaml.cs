@@ -68,5 +68,11 @@ namespace AutoDoomFramework.Views
         {
 
         }
+
+        private void RunIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            EditorWindowViewModel viewModel = (EditorWindowViewModel)DataContext;
+            viewModel.RunWorkflowCommand.Execute();
+        }
     }
 }

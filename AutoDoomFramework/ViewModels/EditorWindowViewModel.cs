@@ -1,5 +1,6 @@
 ﻿using AutoDoomFramework.Common.Tools;
 using AutoDoomFramework.Models;
+using AutoDoomFramework.Models.Project;
 using AutoDoomFramework.Models.ToolBox;
 using AutoDoomFramework.Properties;
 using AutoDoomFramework.Services.Interfaces;
@@ -99,17 +100,21 @@ namespace AutoDoomFramework.ViewModels
                 }
             }
 
-            new DesignerMetadata().Register();
-            WorkflowDesigner wf = new WorkflowDesigner
+            WorkflowDesigner wf = null;
+            switch (WorkingRegistry)
             {
-                Text = workflowName,
-                PropertyInspectorFontAndColorData = resourceService.GetWorkflowDesignerResource()
-            };
+                case DProcess process:
+                    {
+                        Workflow workflow = process.WorkflowCollection.Workflows.Find(item => item.FileName == workflowName);
+                        if (workflow is null)
+                        {
+                            return;
+                        }
 
-            WorkflowDesignerIcons.UseWindowsStoreAppStyleIcons();
-
-            wf.Context.Services.GetService<DesignerConfigurationService>().TargetFrameworkName = new System.Runtime.Versioning.FrameworkName(".NETFramework", new System.Version(4, 8));
-            wf.Load(Path.Combine(cacheService.GetWorkingRegistry().Location, cacheService.GetWorkingRegistry().Name, workflowName));
+                        wf = workflow.Instance;
+                        break;
+                    }
+            }
 
             Border viewBorder = new Border();
             viewBorder.Child = wf.View;
@@ -158,6 +163,42 @@ namespace AutoDoomFramework.ViewModels
             wd.Save(Path.Combine(cacheService.GetWorkingRegistry().Location, cacheService.GetWorkingRegistry().Name, workflowName));
         }
 
+        public DelegateCommand RunWorkflowCommand { get; private set; }
+        private void RunWorkflow()
+        {
+            string mainWorkflowName = (WorkingRegistry as DProcess).MainWorkflow.FileName;
+
+            WorkflowDesigner wf = null;
+            switch (WorkingRegistry)
+            {
+                case DProcess process:
+                    {
+                        wf = (WorkingRegistry as DProcess).WorkflowCollection.MainWorkflow.Instance;
+                        break;
+                    }
+            }
+
+            if (wf is null)
+            {
+                Console.WriteLine("Workflow not found.");
+            }
+            else
+            {
+                wf.Flush();
+                MemoryStream workflowStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(wf.Text));
+
+                ActivityXamlServicesSettings settings = new ActivityXamlServicesSettings()
+                {
+                    CompileExpressions = true
+                };
+
+                Activity activityExecute = ActivityXamlServices.Load(workflowStream, settings);
+
+                WorkflowApplication workflowApplication = new WorkflowApplication(activityExecute);
+                workflowApplication.Run();
+            }
+        }
+
         public EditorWindowViewModel(ICacheService cacheService, IActivityService activityService, IResourceService resourceService)
         {
             this.cacheService = cacheService;
@@ -170,6 +211,7 @@ namespace AutoDoomFramework.ViewModels
 
             OpenWorkflowCommand = new DelegateCommand<string>(OpenWorkflow);
             CloseWorkflowCommand = new DelegateCommand<string>(CloseWorkflow);
+            RunWorkflowCommand = new DelegateCommand(RunWorkflow);
         }
     }
 }

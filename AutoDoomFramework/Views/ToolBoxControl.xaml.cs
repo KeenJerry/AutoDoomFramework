@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities.Statements;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,17 @@ namespace AutoDoomFramework.Views
         private void Expander_Click(object sender, RoutedEventArgs e)
         {
             (sender as ToggleButton).IsChecked = true;
+        }
+
+        private void StackPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Type t = (sender as StackPanel).Tag as Type;
+                DataObject data = new DataObject(System.Activities.Presentation.DragDropHelper.WorkflowItemTypeNameFormat, t.AssemblyQualifiedName);
+
+                DragDrop.DoDragDrop(this, data, DragDropEffects.All);
+            }
         }
     }
 }
