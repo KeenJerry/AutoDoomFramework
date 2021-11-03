@@ -134,5 +134,15 @@ namespace AutoDoomFramework.Services.Providers
 
             return null;
         }
+
+        public DActivityCategory LoadOCRActivities()
+        {
+            Assembly assembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName("AutoDoom.Activities.OCR.dll"));
+            foreach(Type name in assembly.GetExportedTypes())
+            {
+                Console.WriteLine(name.Name);
+            }
+            return new DActivityCategory("OCR");
+        }
     }
 }

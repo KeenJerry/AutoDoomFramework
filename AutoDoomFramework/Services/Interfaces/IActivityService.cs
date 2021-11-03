@@ -20,6 +20,8 @@ namespace AutoDoomFramework.Services.Interfaces
 
         DActivityCategory LoadDefaultActivities();
 
+        DActivityCategory LoadOCRActivities();
+
         List<DActivityCategory> GetAllActivities();
     }
 }

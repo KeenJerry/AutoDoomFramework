@@ -472,5 +472,11 @@
   <ItemGroup>
     <Resource Include="Assets\Images\icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\OCRActivities\OCRActivitiyLibs\OCRActivitiyLibs.csproj">
+      <Project>{87121721-39d1-48df-aeeb-94b6de4608c6}</Project>
+      <Name>OCRActivitiyLibs</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
