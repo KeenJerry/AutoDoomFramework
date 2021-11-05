@@ -32,9 +32,12 @@ namespace AutoDoomFramework.Views
 
         private void TopBarScaleButton_Click(object sender, RoutedEventArgs e)
         {
+            // TODO
             if (WindowState == WindowState.Normal)
             {
+                WindowStyle = WindowStyle.SingleBorderWindow;
                 WindowState = WindowState.Maximized;
+                WindowStyle = WindowStyle.None;
                 BorderThickness = new Thickness(7);
             }
             else

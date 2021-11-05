@@ -139,7 +139,7 @@
                                 </avalon:LayoutAnchorGroup>
                                 <avalon:LayoutAnchorGroup>
                                     <avalon:LayoutAnchorable Title="Activities" AutoHideWidth="200" AutoHideMinWidth="200" CanHide="False"  FloatingWidth="200" FloatingHeight="400" CanShowOnHover="False" CanDockAsTabbedDocument="False" IconSource="/Assets/Images/activity.png">
-                                        <Grid VerticalAlignment="Top">
+                                        <Grid VerticalAlignment="Stretch">
                                             <local:ToolBoxControl>
                                             </local:ToolBoxControl>
                                         </Grid>

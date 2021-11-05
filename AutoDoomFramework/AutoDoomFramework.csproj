@@ -473,6 +473,14 @@
     <Resource Include="Assets\Images\icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AutoDoom.Element\AutoDoom.Element\AutoDoom.Element.csproj">
+      <Project>{b4030e14-d28b-421c-b75d-b0c032516239}</Project>
+      <Name>AutoDoom.Element</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AutoDoom.Render\AutoDoom.Render\AutoDoom.Render.csproj">
+      <Project>{058dc4ff-ee5e-4897-bf2b-1b224f406bee}</Project>
+      <Name>AutoDoom.Render</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\OCRActivities\OCRActivitiyLibs\OCRActivitiyLibs.csproj">
       <Project>{87121721-39d1-48df-aeeb-94b6de4608c6}</Project>
       <Name>OCRActivitiyLibs</Name>

@@ -22,6 +22,10 @@ namespace AutoDoomFramework.Services.Interfaces
 
         DActivityCategory LoadOCRActivities();
 
+        DActivityCategory LoadRenderActivities();
+
+        DActivityCategory LoadElementActivities();
+
         List<DActivityCategory> GetAllActivities();
     }
 }

@@ -7,7 +7,7 @@
              xmlns:tools="clr-namespace:AutoDoomFramework.Common.Tools"
              xmlns:toolbox="clr-namespace:AutoDoomFramework.Models.ToolBox"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="150">
+              d:DesignWidth="150">
     <UserControl.Resources>
         <Style TargetType="ToggleButton" x:Key="ToggleButtonStyle">
             <Setter Property="Background" Value="Transparent"/>
@@ -111,7 +111,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid VerticalAlignment="Stretch">
         <Grid.Resources>
             <ResourceDictionary>
                 
@@ -152,7 +152,7 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <TreeView x:Name="PART_Tools" Background="Transparent" Grid.Row="1" BorderThickness="0" Margin="0" ItemsSource="{Binding DActivityCategories}">
+        <TreeView x:Name="PART_Tools" Background="Transparent" Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}" Grid.Row="1" BorderThickness="0" Margin="0" ItemsSource="{Binding DActivityCategories}">
             <TreeView.Resources>
                 <tools:TreeViewHeaderConverter x:Key="HeaderConverter"/>
                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource AutoDoomTreeViewItemStyle}"/>

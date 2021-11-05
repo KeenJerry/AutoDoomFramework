@@ -184,7 +184,9 @@ namespace AutoDoomFramework.ViewModels
             }
             else
             {
+
                 wf.Flush();
+                wf.Save(Path.Combine(WorkingRegistry.Location, WorkingRegistry.Name,mainWorkflowName));
                 MemoryStream workflowStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(wf.Text));
 
                 ActivityXamlServicesSettings settings = new ActivityXamlServicesSettings()
@@ -209,6 +211,8 @@ namespace AutoDoomFramework.ViewModels
 
             activityService.LoadDefaultActivities();
             activityService.LoadOCRActivities();
+            activityService.LoadRenderActivities();
+            activityService.LoadElementActivities();
 
             OpenWorkflowCommand = new DelegateCommand<string>(OpenWorkflow);
             CloseWorkflowCommand = new DelegateCommand<string>(CloseWorkflow);

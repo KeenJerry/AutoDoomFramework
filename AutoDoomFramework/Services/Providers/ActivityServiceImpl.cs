@@ -137,12 +137,98 @@ namespace AutoDoomFramework.Services.Providers
 
         public DActivityCategory LoadOCRActivities()
         {
-            Assembly assembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName("AutoDoom.Activities.OCR.dll"));
-            foreach(Type name in assembly.GetExportedTypes())
+            Assembly assembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName("AutoDoom.OCR.dll"));
+            DActivityCategory autoDoomCategory = toolsTree.Find(category => category.CategoryName == "AutoDoom");
+            if (autoDoomCategory is null)
             {
-                Console.WriteLine(name.Name);
+                autoDoomCategory = new DActivityCategory("AutoDoom");
+                toolsTree.Add(autoDoomCategory);
             }
-            return new DActivityCategory("OCR");
+            DActivityCategory ocrCategory = autoDoomCategory.DActivityCategories.Find(
+                category =>
+                {
+                    return !(category is null) && (category.CategoryName == "OCR");
+                });
+            if (ocrCategory == null)
+            {
+                ocrCategory = new DActivityCategory("OCR");
+                autoDoomCategory.AddCategory(ocrCategory);
+            }
+
+            foreach(Type t in assembly.GetExportedTypes())
+            {
+                if (typeof(Activity).IsAssignableFrom(t))
+                {
+                    FieldInfo fieldInfo = t.GetField("Icon", BindingFlags.Static | BindingFlags.NonPublic);
+                    ImageSource imageSource = new BitmapImage(new Uri("pack://application:,,,/AutoDoom.OCR;component/Icons/ocronscreen.png"));
+                    ocrCategory.AddActivity(new DActivity(t, imageSource, "AutoDoom.OCR"));
+                }
+            }
+            return ocrCategory;
+        }
+
+        public DActivityCategory LoadRenderActivities()
+        {
+            Assembly assembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName("AutoDoom.Render.dll"));
+            DActivityCategory autoDoomCategory = toolsTree.Find(category => category.CategoryName == "AutoDoom");
+            if (autoDoomCategory is null)
+            {
+                autoDoomCategory = new DActivityCategory("AutoDoom");
+                toolsTree.Add(autoDoomCategory);
+            }
+            DActivityCategory renderCategory = autoDoomCategory.DActivityCategories.Find(
+                category =>
+                {
+                    return !(category is null) && (category.CategoryName == "Render");
+                });
+            if (renderCategory == null)
+            {
+                renderCategory = new DActivityCategory("Render");
+                autoDoomCategory.AddCategory(renderCategory);
+            }
+
+            foreach (Type t in assembly.GetExportedTypes())
+            {
+                if (typeof(Activity).IsAssignableFrom(t))
+                {
+                    FieldInfo fieldInfo = t.GetField("Icon", BindingFlags.Static | BindingFlags.NonPublic);
+                    ImageSource imageSource = new BitmapImage(new Uri("pack://application:,,,/AutoDoom.Render;component/Icons/" + t.Name + ".png"));
+                    renderCategory.AddActivity(new DActivity(t, imageSource, "AutoDoom.Render"));
+                }
+            }
+            return renderCategory;
+        }
+
+        public DActivityCategory LoadElementActivities()
+        {
+            Assembly assembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName("AutoDoom.Element.dll"));
+            DActivityCategory autoDoomCategory = toolsTree.Find(category => category.CategoryName == "AutoDoom");
+            if (autoDoomCategory is null)
+            {
+                autoDoomCategory = new DActivityCategory("AutoDoom");
+                toolsTree.Add(autoDoomCategory);
+            }
+            DActivityCategory renderCategory = autoDoomCategory.DActivityCategories.Find(
+                category =>
+                {
+                    return !(category is null) && (category.CategoryName == "Element");
+                });
+            if (renderCategory == null)
+            {
+                renderCategory = new DActivityCategory("Element");
+                autoDoomCategory.AddCategory(renderCategory);
+            }
+
+            foreach (Type t in assembly.GetExportedTypes())
+            {
+                if (typeof(Activity).IsAssignableFrom(t))
+                {
+                    FieldInfo fieldInfo = t.GetField("Icon", BindingFlags.Static | BindingFlags.NonPublic);
+                    ImageSource imageSource = new BitmapImage(new Uri("pack://application:,,,/AutoDoom.Element;component/Icons/" + t.Name + ".png"));
+                    renderCategory.AddActivity(new DActivity(t, imageSource, "AutoDoom.Element"));
+                }
+            }
+            return renderCategory;
         }
     }
 }
