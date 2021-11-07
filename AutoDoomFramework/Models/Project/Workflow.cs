@@ -3,6 +3,7 @@ using System.Activities.Presentation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AutoDoomFramework.Models.Project
@@ -17,6 +18,7 @@ namespace AutoDoomFramework.Models.Project
         }
 
         private WorkflowDesigner workflowDesigner;
+        [JsonIgnore]
         public WorkflowDesigner Instance
         {
             get => workflowDesigner;

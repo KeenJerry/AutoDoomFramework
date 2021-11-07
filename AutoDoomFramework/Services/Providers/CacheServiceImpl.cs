@@ -14,6 +14,7 @@ using System.Activities.Presentation;
 using System.Activities.Statements;
 using System.Threading;
 using System.Activities.Core.Presentation;
+using System.Windows;
 
 namespace AutoDoomFramework.Services.Providers
 {
@@ -105,9 +106,12 @@ namespace AutoDoomFramework.Services.Providers
                         }
                         using (FileStream projectJson = File.Create(Path.Combine(process.Location, process.Name, Config.ConfigFileName)))
                         {
-                            string content = JsonSerializer.Serialize(process, new JsonSerializerOptions { WriteIndented = true });
-                            byte[] bytes = Encoding.UTF8.GetBytes(content);
-                            projectJson.Write(bytes, 0, bytes.Length);
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                string content = JsonSerializer.Serialize(process, new JsonSerializerOptions { WriteIndented = true });
+                                byte[] bytes = Encoding.UTF8.GetBytes(content);
+                                projectJson.Write(bytes, 0, bytes.Length);
+                            });
                         }
 
                         return true;

@@ -74,7 +74,6 @@ namespace AutoDoomFramework.ViewModels
         {
             Thread loadingThread = new Thread(() =>
             {
-                cacheService.LoadAllWorkflowDesignerInProject(ref process);
                 cacheService.SetWorkingRegistry(ref process);
                 if (!cacheService.InitialProjectFiles(ref process))
                 {
@@ -82,6 +81,7 @@ namespace AutoDoomFramework.ViewModels
                     return;
                 }
 
+                cacheService.LoadAllWorkflowDesignerInProject(ref process);
                 cacheService.AddRegistry(ref process);
                 cacheService.FlushToCache();
 
