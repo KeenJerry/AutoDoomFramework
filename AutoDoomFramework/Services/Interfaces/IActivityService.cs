@@ -14,17 +14,23 @@ namespace AutoDoomFramework.Services.Interfaces
 
         void LoadActivities(List<string> assemblyNames);
 
+        string[] GetAppDefaultActivityNames();
+
         List<Assembly> GetLoadedAssemblies();
 
-        Assembly FindDefaultActivityAssembly();
+        Assembly FindSystemActivityAssembly();
 
-        DActivityCategory LoadDefaultActivities();
+        DActivityCategory LoadSystemActivities();
 
         DActivityCategory LoadOCRActivities();
 
         DActivityCategory LoadRenderActivities();
 
         DActivityCategory LoadElementActivities();
+
+        DActivityCategory LoadDialDetectionActivities();
+
+        DActivityCategory LoadRTMPActivities();
 
         List<DActivityCategory> GetAllActivities();
     }

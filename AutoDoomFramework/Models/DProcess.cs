@@ -1,4 +1,5 @@
-﻿using AutoDoomFramework.Models.Project;
+﻿using AutoDoomFramework.Common.Tools;
+using AutoDoomFramework.Models.Project;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace AutoDoomFramework.Models
 
     class DProcess: Registry
     {
-        private DependencyCollection dependencyCollection = new DependencyCollection();
+        private DependencyCollection dependencyCollection = DependencyCollectionFactory.DefaultDependencyCollection();
         public DependencyCollection DependencyCollection
         {
             get => dependencyCollection;

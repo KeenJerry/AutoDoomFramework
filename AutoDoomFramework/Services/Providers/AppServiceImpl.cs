@@ -11,8 +11,8 @@ namespace AutoDoomFramework.Services.Providers
 {
     class AppServiceImpl: IAppService
     {
-        private string InstallLocation { get { return @"C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\AutoDoomFramework\bin\Debug"; } }
-        private string CachePath { get { return ".cache"; } }
+        private string InstallLocation { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AutoDoom"); } }
+        private string CachePath { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AutoDoom"); ; } }
         private string RegistryFileName { get { return "registry.json"; } }
 
         public AppServiceImpl()

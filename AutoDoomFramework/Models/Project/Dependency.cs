@@ -14,5 +14,10 @@ namespace AutoDoomFramework.Models.Project
             get => name;
             set => name = value;
         }
+
+        public Dependency(string name)
+        {
+            Name = name;
+        }
     }
 }

@@ -196,7 +196,7 @@
                     </Grid>
                 </HierarchicalDataTemplate>
 
-                <HierarchicalDataTemplate DataType="{x:Type projects:DependencyCollection}" ItemsSource="{Binding Dependencies}">
+                <HierarchicalDataTemplate DataType="{x:Type projects:DependencyCollection}" ItemsSource="{Binding Items}">
                     <Grid>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/Images/dependencies.png"/>

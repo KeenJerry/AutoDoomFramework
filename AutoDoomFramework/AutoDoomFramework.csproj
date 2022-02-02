@@ -29,6 +29,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -186,6 +188,7 @@
     <Compile Include="Common\Events\InitalProcessFailedEvent.cs" />
     <Compile Include="Common\Tools\ActivityLoader.cs" />
     <Compile Include="Common\Tools\ADLayoutUpdateStrategy.cs" />
+    <Compile Include="Common\Tools\DependencyCollectionFactory.cs" />
     <Compile Include="Common\Tools\LRU.cs" />
     <Compile Include="Common\Tools\MD5Encoder.cs" />
     <Compile Include="Common\Tools\SuffixCutter.cs" />
@@ -473,6 +476,10 @@
     <Resource Include="Assets\Images\icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AutoDoom.Dial\AutoDoom.Dial\AutoDoom.Dial.csproj">
+      <Project>{1c0daa49-b692-402b-a482-68611770b2c0}</Project>
+      <Name>AutoDoom.Dial</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\AutoDoom.Element\AutoDoom.Element\AutoDoom.Element.csproj">
       <Project>{b4030e14-d28b-421c-b75d-b0c032516239}</Project>
       <Name>AutoDoom.Element</Name>
@@ -486,5 +493,16 @@
       <Name>OCRActivitiyLibs</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Images\deep_learning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\streaming-data.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\x64\Release\AutoDoom.Dial.Detect.dll C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\AutoDoomFramework\bin\x64\Release</PostBuildEvent>
+  </PropertyGroup>
 </Project>

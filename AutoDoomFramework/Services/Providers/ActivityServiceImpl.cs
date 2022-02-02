@@ -27,11 +27,11 @@ namespace AutoDoomFramework.Services.Providers
             return ToolsTree;
         }
 
-        public DActivityCategory LoadDefaultActivities()
+        public DActivityCategory LoadSystemActivities()
         {
             DActivityCategory dActivityCategory = new DActivityCategory("System");
 
-            Assembly defaultAssembly = FindDefaultActivityAssembly();
+            Assembly defaultAssembly = FindSystemActivityAssembly();
             if (defaultAssembly is null)
             {
                 return dActivityCategory; // TODO Warn user of the none existence.
@@ -122,7 +122,7 @@ namespace AutoDoomFramework.Services.Providers
              return AppDomain.CurrentDomain.GetAssemblies().ToList();
         }
 
-        public Assembly FindDefaultActivityAssembly()
+        public Assembly FindSystemActivityAssembly()
         {
             foreach(Assembly assembly in GetLoadedAssemblies())
             {
@@ -229,6 +229,75 @@ namespace AutoDoomFramework.Services.Providers
                 }
             }
             return renderCategory;
+        }
+
+        public DActivityCategory LoadDialDetectionActivities()
+        {
+            Assembly assembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName("AutoDoom.Dial.dll"));
+            DActivityCategory autoDoomCategory = toolsTree.Find(category => category.CategoryName == "AutoDoom");
+            if (autoDoomCategory is null)
+            {
+                autoDoomCategory = new DActivityCategory("AutoDoom");
+                toolsTree.Add(autoDoomCategory);
+            }
+            DActivityCategory dialCategory = autoDoomCategory.DActivityCategories.Find(
+                category =>
+                {
+                    return !(category is null) && (category.CategoryName == "Dial");
+                });
+            if (dialCategory == null)
+            {
+                dialCategory = new DActivityCategory("Dial");
+                autoDoomCategory.AddCategory(dialCategory);
+            }
+
+            foreach (Type t in assembly.GetExportedTypes())
+            {
+                if (typeof(Activity).IsAssignableFrom(t))
+                {
+                    FieldInfo fieldInfo = t.GetField("Icon", BindingFlags.Static | BindingFlags.NonPublic);
+                    ImageSource imageSource = new BitmapImage(new Uri("pack://application:,,,/AutoDoom.Dial;component/Icons/" + t.Name + ".png"));
+                    dialCategory.AddActivity(new DActivity(t, imageSource, "AutoDoom.Dial"));
+                }
+            }
+            return dialCategory;
+        }
+
+        class RTMPVideoStream : NativeActivity
+        {
+            protected override void Execute(NativeActivityContext context)
+            {
+                throw new NotImplementedException();
+            }
+        }
+        public DActivityCategory LoadRTMPActivities()
+        {
+            DActivityCategory autoDoomCategory = toolsTree.Find(category => category.CategoryName == "AutoDoom");
+            if (autoDoomCategory is null)
+            {
+                autoDoomCategory = new DActivityCategory("AutoDoom");
+                toolsTree.Add(autoDoomCategory);
+            }
+
+            DActivityCategory RTMPVideoStreamingCategory = autoDoomCategory.DActivityCategories.Find(
+                category =>
+                {
+                    return !(category is null) && (category.CategoryName == "RTMP");
+                });
+            if (RTMPVideoStreamingCategory == null)
+            {
+                RTMPVideoStreamingCategory = new DActivityCategory("RTMP");
+                autoDoomCategory.AddCategory(RTMPVideoStreamingCategory);
+            }
+
+            ImageSource imageSource = new BitmapImage(new Uri("./Assets/Images/streaming-data.png", UriKind.Relative));
+            RTMPVideoStreamingCategory.AddActivity(new DActivity(typeof(RTMPVideoStream), imageSource, "AutoDoom.RTMP"));
+            return RTMPVideoStreamingCategory;
+        }
+
+        public string[] GetAppDefaultActivityNames()
+        {
+            return new string[] { "Render", "Element", "Dial", "OCR" };
         }
     }
 }

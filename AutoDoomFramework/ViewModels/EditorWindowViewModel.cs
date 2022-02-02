@@ -209,10 +209,13 @@ namespace AutoDoomFramework.ViewModels
 
             RegistryName = cacheService.GetWorkingRegistryName();
 
-            activityService.LoadDefaultActivities();
+            activityService.LoadSystemActivities();
             activityService.LoadOCRActivities();
             activityService.LoadRenderActivities();
             activityService.LoadElementActivities();
+
+            activityService.LoadDialDetectionActivities();
+            //activityService.LoadRTMPActivities();
 
             OpenWorkflowCommand = new DelegateCommand<string>(OpenWorkflow);
             CloseWorkflowCommand = new DelegateCommand<string>(CloseWorkflow);
