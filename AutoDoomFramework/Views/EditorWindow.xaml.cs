@@ -1,4 +1,5 @@
 ﻿using AutoDoomFramework.ViewModels;
+using AutoDoomFramework.Views.Icons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,15 +68,22 @@ namespace AutoDoomFramework.Views
             viewModel.CloseWorkflowCommand.Execute((e.Document.Content as Border).Tag as string);
         }
 
-        private void SaveFunctionButton_Loaded(object sender, RoutedEventArgs e)
+        private void SaveWorkflowItem_Click(object sender, RoutedEventArgs e)
         {
-
+            SaveFunctionButton.IsDropDownOpen = false;
+            SaveFunctionButton.SelectedIndex = int.Parse(((Button)sender).Tag.ToString());
         }
 
-        private void RunIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        private void RunWorkflow(object sender, MouseButtonEventArgs e)
         {
             EditorWindowViewModel viewModel = (EditorWindowViewModel)DataContext;
             viewModel.RunWorkflowCommand.Execute();
+        }
+
+        private void ExecuteWorkflowItem_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteWorkflowButton.IsDropDownOpen = false;
+            ExecuteWorkflowButton.SelectedIndex = int.Parse(((Button)sender).Tag.ToString());
         }
     }
 }

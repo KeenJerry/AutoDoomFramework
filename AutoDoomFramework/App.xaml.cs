@@ -33,6 +33,7 @@ namespace AutoDoomFramework
             containerRegistry.RegisterSingleton<ICacheService, CacheServiceImpl>();
             containerRegistry.RegisterSingleton<IActivityService, ActivityServiceImpl>();
             containerRegistry.RegisterSingleton<IResourceService, ResourceServiceImpl>();
+            containerRegistry.RegisterSingleton<IWorkflowService, WorkflowServiceImpl>();
         }
     }
 }

@@ -9,6 +9,7 @@
         xmlns:tools="clr-namespace:AutoDoomFramework.Common.Tools"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:sapt="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation/toolbox"
         mc:Ignorable="d"
         Title="EditorWindow" Height="600" Width="1080" WindowStyle="None" MinHeight="400" MinWidth="600" Language="en-us">
@@ -18,6 +19,7 @@
 
     <Window.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Assets/Resources/TopBar/TopBarButtonTemplate.xaml"/>
                 <ResourceDictionary Source="/Assets/Resources/StartUpNavi/StartUpNaviTemplates.xaml"/>
@@ -34,6 +36,8 @@
                         TextTrimming="CharacterEllipsis" />
                 </StackPanel>
             </DataTemplate>
+
+            <tools:ExecuteWorkflowCommandConverter x:Key="ExecuteWorkflowCommandConverter"/>
 
         </ResourceDictionary>
     </Window.Resources>
@@ -52,7 +56,7 @@
                     <TabItem Header="DESIGN" IsSelected="True" Height="30" FontSize="13">
                         <Grid Margin="5 3 3 0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="38"/>
+                                <ColumnDefinition Width="60"/>
                                 <ColumnDefinition Width="3"/>
                                 <ColumnDefinition Width="52"/>
                                 <ColumnDefinition Width="3"/>
@@ -63,46 +67,96 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="76"/>
                             </Grid.RowDefinitions>
-                            
-                            <local:FunctionButton x:Name="SaveFunctionButton" PopupContent="Save" Loaded="SaveFunctionButton_Loaded">
-                                <local:FunctionButton.ButtonContent>
-                                    <icons:SaveIcon />
-                                </local:FunctionButton.ButtonContent>
-                                <local:FunctionButton.PopupItems >
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
+
+                            <local:FunctionButton x:Name="SaveFunctionButton" SelectedIndex="0" IsDropDownOpen="False" IsComboBoxEnabled="True">
+                                <local:FunctionButton.PopupItems>
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="SaveWorkflowItem_Click" Tag="0">
                                         <StackPanel Orientation="Horizontal">
                                             <icons:SaveIcon/>
+                                            <Label Content="Save" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="SaveWorkflowItem_Click" Tag="1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <icons:SaveAllIcon/>
                                             <Label Content="Save As" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="SaveWorkflowItem_Click" Tag="2">
                                         <StackPanel Orientation="Horizontal">
                                             <icons:SaveAllIcon/>
                                             <Label Content="Save All" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </local:FunctionButton.PopupItems>
+                                <local:FunctionButton.FunctionElements>
+                                    <icons:SaveIcon></icons:SaveIcon>
+                                    <icons:SaveAllIcon></icons:SaveAllIcon>
+                                    <icons:SaveAllIcon></icons:SaveAllIcon>
+                                </local:FunctionButton.FunctionElements>
+                                <local:FunctionButton.FunctionElementTexts>
+                                    <sys:String>Save</sys:String>
+                                    <sys:String>Save As</sys:String>
+                                    <sys:String>Save All</sys:String>
+                                </local:FunctionButton.FunctionElementTexts>
+                                <local:FunctionButton.SelectedItem>
+                                    <icons:SaveIcon/>
+                                </local:FunctionButton.SelectedItem>
+                                <local:FunctionButton.FunctionText>
+                                    <sys:String>Save</sys:String>
+                                </local:FunctionButton.FunctionText>
                             </local:FunctionButton>
 
-                            <local:FunctionButton x:Name="RunFunctionButton" Grid.Column="2" PopupContent="Debug">
-                                <local:FunctionButton.ButtonContent>
-                                    <icons:RunIcon MouseDown="RunIcon_MouseDown"/>
-                                </local:FunctionButton.ButtonContent>
+                            <local:FunctionButton x:Name="ExecuteWorkflowButton" Grid.Column="2" SelectedIndex="0" IsDropDownOpen="False" IsComboBoxEnabled="True">
                                 <local:FunctionButton.PopupItems>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="ExecuteWorkflowItem_Click" Tag="0">
                                         <StackPanel Orientation="Horizontal">
                                             <icons:RunIcon/>
                                             <Label Content="Run" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0">
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="ExecuteWorkflowItem_Click" Tag="1">
                                         <StackPanel Orientation="Horizontal">
-                                            <icons:DebugIcon/>
+                                            <Button Background="Transparent" BorderThickness="0" Padding="0">
+                                                <icons:DebugIcon/>
+                                            </Button>
                                             <Label Content="Debug" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="ExecuteWorkflowItem_Click" Tag="2" Visibility="Collapsed">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Background="Transparent" BorderThickness="0" Padding="0">
+                                                <icons:StopIcon/>
+                                            </Button>
+                                            <Label Content="Stop" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Button>
                                 </local:FunctionButton.PopupItems>
-                                
+                                <local:FunctionButton.FunctionElements>
+                                    <icons:RunIcon/>
+                                    <icons:DebugIcon/>
+                                    <icons:StopIcon/>
+                                </local:FunctionButton.FunctionElements>
+                                <local:FunctionButton.FunctionElementTexts>
+                                    <sys:String>Run</sys:String>
+                                    <sys:String>Debug</sys:String>
+                                    <sys:String>Stop</sys:String>
+                                </local:FunctionButton.FunctionElementTexts>
+                                <local:FunctionButton.SelectedItem>
+                                    <icons:RunIcon/>
+                                </local:FunctionButton.SelectedItem>
+                                <local:FunctionButton.FunctionText>
+                                    <sys:String>Run</sys:String>
+                                </local:FunctionButton.FunctionText>
+
+                                <local:FunctionButton.SelectedCommand>
+                                    <MultiBinding Converter="{StaticResource ExecuteWorkflowCommandConverter}">
+                                        <MultiBinding.Bindings>
+                                            <Binding Path="SelectedIndex" ElementName="ExecuteWorkflowButton"></Binding>
+                                            <Binding />
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </local:FunctionButton.SelectedCommand>
                             </local:FunctionButton> 
                         </Grid>
                     </TabItem>

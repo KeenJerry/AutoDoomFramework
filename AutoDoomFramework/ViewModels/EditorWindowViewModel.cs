@@ -4,6 +4,7 @@ using AutoDoomFramework.Models.Project;
 using AutoDoomFramework.Models.ToolBox;
 using AutoDoomFramework.Properties;
 using AutoDoomFramework.Services.Interfaces;
+using AutoDoomFramework.Views.Icons;
 using AvalonDock.Layout;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -36,6 +37,7 @@ namespace AutoDoomFramework.ViewModels
         private readonly ICacheService cacheService;
         private readonly IResourceService resourceService;
         private readonly IActivityService activityService;
+        private readonly IWorkflowService workflowService;
 
         private string registryName;
         public string RegistryName
@@ -45,6 +47,17 @@ namespace AutoDoomFramework.ViewModels
             {
                 SetProperty(ref registryName, value);
                 RaisePropertyChanged(nameof(RegistryName));
+            }
+        }
+
+        private Button executeIcon = null;
+        public Button ExecuteIcon
+        {
+            get => executeIcon;
+            set
+            {
+                SetProperty(ref executeIcon, value);
+                RaisePropertyChanged(nameof(ExecuteIcon));
             }
         }
 
@@ -187,25 +200,47 @@ namespace AutoDoomFramework.ViewModels
 
                 wf.Flush();
                 wf.Save(Path.Combine(WorkingRegistry.Location, WorkingRegistry.Name,mainWorkflowName));
-                MemoryStream workflowStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(wf.Text));
 
-                ActivityXamlServicesSettings settings = new ActivityXamlServicesSettings()
-                {
-                    CompileExpressions = true
-                };
+                workflowService.Run(wf);
+                //MemoryStream workflowStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(wf.Text));
 
-                Activity activityExecute = ActivityXamlServices.Load(workflowStream, settings);
+                //ActivityXamlServicesSettings settings = new ActivityXamlServicesSettings()
+                //{
+                //    CompileExpressions = true
+                //};
 
-                WorkflowApplication workflowApplication = new WorkflowApplication(activityExecute);
-                workflowApplication.Run();
+                //Activity activityExecute = ActivityXamlServices.Load(workflowStream, settings);
+
+                //WorkflowApplication workflowApplication = new WorkflowApplication(activityExecute);
+                //workflowApplication.Run();
             }
         }
 
-        public EditorWindowViewModel(ICacheService cacheService, IActivityService activityService, IResourceService resourceService)
+        public DelegateCommand DebugWorkflowCommand { get; private set; }
+        private void DebugWorkflow() 
+        {
+            Console.WriteLine("Debug Start");
+        }
+
+        public DelegateCommand StopWorkflowCommand { get; private set; }
+        private void StopWorkflow() { }
+
+        public DelegateCommand SaveWorkflowCommand { get; private set; }
+        private void SaveWorkflow() { }
+
+        public DelegateCommand SaveAllWorkflowCommand { get; private set; }
+        private void SaveAllWorkflow() { }
+
+        public DelegateCommand SaveAsWorkflowCommand { get; private set; }
+        private void SaveAsWorkflow() { }
+
+
+        public EditorWindowViewModel(ICacheService cacheService, IActivityService activityService, IResourceService resourceService, IWorkflowService workflowService)
         {
             this.cacheService = cacheService;
             this.resourceService = resourceService;
             this.activityService = activityService;
+            this.workflowService = workflowService;
 
             RegistryName = cacheService.GetWorkingRegistryName();
 
@@ -220,6 +255,11 @@ namespace AutoDoomFramework.ViewModels
             OpenWorkflowCommand = new DelegateCommand<string>(OpenWorkflow);
             CloseWorkflowCommand = new DelegateCommand<string>(CloseWorkflow);
             RunWorkflowCommand = new DelegateCommand(RunWorkflow);
+            DebugWorkflowCommand = new DelegateCommand(DebugWorkflow);
+            StopWorkflowCommand = new DelegateCommand(StopWorkflow);
+            SaveWorkflowCommand = new DelegateCommand(SaveWorkflow);
+            SaveAllWorkflowCommand = new DelegateCommand(SaveAllWorkflow);
+            SaveAsWorkflowCommand = new DelegateCommand(SaveAsWorkflow);
         }
     }
 }

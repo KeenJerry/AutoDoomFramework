@@ -189,6 +189,7 @@
     <Compile Include="Common\Tools\ActivityLoader.cs" />
     <Compile Include="Common\Tools\ADLayoutUpdateStrategy.cs" />
     <Compile Include="Common\Tools\DependencyCollectionFactory.cs" />
+    <Compile Include="Common\Tools\ExecuteWorkflowCommandConverter.cs" />
     <Compile Include="Common\Tools\LRU.cs" />
     <Compile Include="Common\Tools\MD5Encoder.cs" />
     <Compile Include="Common\Tools\SuffixCutter.cs" />
@@ -206,12 +207,14 @@
     <Compile Include="Models\Registry.cs" />
     <Compile Include="Services\Interfaces\IActivityService.cs" />
     <Compile Include="Services\Interfaces\IResourceService.cs" />
+    <Compile Include="Services\Interfaces\IWorkflowService.cs" />
     <Compile Include="Services\Providers\ActivityServiceImpl.cs" />
     <Compile Include="Services\Providers\AppServiceImpl.cs" />
     <Compile Include="Services\Interfaces\IAppService.cs" />
     <Compile Include="Services\Interfaces\ICacheService.cs" />
     <Compile Include="Services\Providers\CacheServiceImpl.cs" />
     <Compile Include="Services\Providers\ResourceServiceImpl.cs" />
+    <Compile Include="Services\Providers\WorkflowServiceImpl.cs" />
     <Compile Include="ViewModels\CreateProcessWindowViewModel.cs" />
     <Compile Include="ViewModels\EditorWindowViewModel.cs" />
     <Compile Include="ViewModels\LoadingWindowViewModel.cs" />
@@ -242,6 +245,9 @@
     </Compile>
     <Compile Include="Views\Icons\SaveIcon.xaml.cs">
       <DependentUpon>SaveIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Icons\StopIcon.xaml.cs">
+      <DependentUpon>StopIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
@@ -343,6 +349,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Icons\SaveIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Icons\StopIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

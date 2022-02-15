@@ -7,6 +7,27 @@
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="AutoDoomFramework.Views.FunctionButton"
              mc:Ignorable="d" 
              d:DesignHeight="66" d:DesignWidth="35">
+    <UserControl.Template>
+        <ControlTemplate TargetType="UserControl">
+            <Grid>
+                <Border BorderThickness="1 1 1 0" Style="{DynamicResource TopBorderStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                        <Button x:Name="FunctionButtonButton" Style="{DynamicResource FunctionButtonTopStyle}" Content="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}}" Command="{Binding SelectedCommand, RelativeSource={RelativeSource TemplatedParent}}">
+
+                        </Button>
+                        <ComboBox x:Name="FunctionButtonComboBox" Tag="{Binding FunctionText, RelativeSource={RelativeSource TemplatedParent}}" Grid.Row="1" IsEnabled="{Binding IsComboBoxEnabled, RelativeSource={RelativeSource TemplatedParent}}" SelectedIndex="{Binding SelectedIndex, RelativeSource={RelativeSource TemplatedParent}}" IsDropDownOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource FunctionComboBoxStyle}" ItemsSource="{Binding PopupItems, RelativeSource={RelativeSource TemplatedParent}}">
+                        </ComboBox>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ControlTemplate>
+    </UserControl.Template>
+    
     <UserControl.Resources>
         <!-- FunctionButtonTop Style -->
         <Style x:Key="FocusVisual">
@@ -102,7 +123,7 @@
                                     <RowDefinition />
                                     <RowDefinition Height="5"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" Foreground="#CDCDCD" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Foreground="#CDCDCD" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding FunctionText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:FunctionButton}}}"/>
                                 <Border x:Name="splitBorder" Grid.Row="1" SnapsToDevicePixels="true" Margin="0" VerticalAlignment="Bottom" BorderThickness="1" BorderBrush="Transparent">
                                     <Path x:Name="arrow" VerticalAlignment="Center" Margin="0" HorizontalAlignment="Center" Fill="White" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z"/>
                                 </Border>
@@ -154,7 +175,7 @@
                             </Grid>
                     </Border>
                 </Popup>
-                <ToggleButton x:Name="toggleButton" Tag="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Row="1" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
+                <ToggleButton x:Name="toggleButton" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Row="1" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="false" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Grid>
             <ControlTemplate.Triggers>
@@ -200,27 +221,7 @@
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="local:FunctionButton">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="local:FunctionButton">
-                        <Border BorderThickness="1 1 1 0" Style="{DynamicResource TopBorderStyle}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                </Grid.RowDefinitions>
+        
 
-                                <Button Style="{DynamicResource FunctionButtonTopStyle}" Content="{Binding ButtonContent, RelativeSource={RelativeSource TemplatedParent}}">
-                                    
-                                </Button>
-                                <ComboBox Grid.Row="1" Style="{DynamicResource FunctionComboBoxStyle}" Tag="{Binding PopupContent, RelativeSource={RelativeSource TemplatedParent}}" ItemsSource="{Binding PopupItems, RelativeSource={RelativeSource TemplatedParent}}">
-                                </ComboBox>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </UserControl.Resources>
 </UserControl>
