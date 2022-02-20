@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -66,43 +67,43 @@ namespace AutoDoomFramework.Views
             set => SetValue(FunctionTextProperty, value);
         }
 
-        public static readonly DependencyProperty PopupItemsProperty = DependencyProperty.Register("PopupItems", typeof(List<Button>), typeof(FunctionButton), new FrameworkPropertyMetadata(new List<Button>()));
-        public List<Button> PopupItems
+        public static readonly DependencyProperty PopupItemsProperty = DependencyProperty.Register("PopupItems", typeof(ObservableCollection<Button>), typeof(FunctionButton), new FrameworkPropertyMetadata(new ObservableCollection<Button>()));
+        public ObservableCollection<Button> PopupItems
         {
-            get => GetValue(PopupItemsProperty) as List<Button>;
+            get => GetValue(PopupItemsProperty) as ObservableCollection<Button>;
             set => SetValue(PopupItemsProperty, value);
         }
 
         private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((FunctionButton)d).SelectedItem = ((FunctionButton)d).FunctionElements[((FunctionButton)d).SelectedIndex];
-            ((FunctionButton)d).FunctionText = ((FunctionButton)d).FunctionElementTexts[((FunctionButton)d).SelectedIndex];
+            ((FunctionButton)d).ComboBoxSelectedItem = ((FunctionButton)d).FunctionElements[((FunctionButton)d).ComboBoxSelectedIndex];
+            ((FunctionButton)d).FunctionText = ((FunctionButton)d).FunctionElementTexts[((FunctionButton)d).ComboBoxSelectedIndex];
         }
-        public static readonly DependencyProperty SelectedIndexProperty = DependencyProperty.Register("SelectedIndex", typeof(int), typeof(FunctionButton), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnSelectedIndexChanged)));
-        public int SelectedIndex
+        public static readonly DependencyProperty ComboBoxSelectedIndexProperty = DependencyProperty.Register("ComboBoxSelectedIndex", typeof(int), typeof(FunctionButton), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnSelectedIndexChanged)));
+        public int ComboBoxSelectedIndex
         {
-            get => (int)GetValue(SelectedIndexProperty);
-            set => SetValue(SelectedIndexProperty, value);
-        }
-
-        public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(FrameworkElement), typeof(FunctionButton));
-        public FrameworkElement SelectedItem
-        {
-            get => GetValue(SelectedItemProperty) as FrameworkElement;
-            set => SetValue(SelectedItemProperty, value);
+            get => (int)GetValue(ComboBoxSelectedIndexProperty);
+            set => SetValue(ComboBoxSelectedIndexProperty, value);
         }
 
-        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(FunctionButton));
-        public bool IsDropDownOpen
+        public static readonly DependencyProperty ComboBoxSelectedItemProperty = DependencyProperty.Register("ComboBoxSelectedItem", typeof(FrameworkElement), typeof(FunctionButton));
+        public FrameworkElement ComboBoxSelectedItem
         {
-            get => (bool)GetValue(IsDropDownOpenProperty);
-            set => SetValue(IsDropDownOpenProperty, value);
+            get => GetValue(ComboBoxSelectedItemProperty) as FrameworkElement;
+            set => SetValue(ComboBoxSelectedItemProperty, value);
+        }
+
+        public static readonly DependencyProperty IsComboBoxDropDownOpenProperty = DependencyProperty.Register("IsComboBoxDropDownOpen", typeof(bool), typeof(FunctionButton));
+        public bool IsComboBoxDropDownOpen
+        {
+            get => (bool)GetValue(IsComboBoxDropDownOpenProperty);
+            set => SetValue(IsComboBoxDropDownOpenProperty, value);
         }
 
         public FunctionButton()
         {
             InitializeComponent();
-            SetValue(PopupItemsProperty, new List<Button>());
+            SetValue(PopupItemsProperty, new ObservableCollection<Button>());
             SetValue(FunctionElementsProperty, new List<FrameworkElement>());
             SetValue(FunctionElementTextsProperty, new List<string>());
         }

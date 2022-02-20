@@ -68,10 +68,18 @@ namespace AutoDoomFramework.Views
             viewModel.CloseWorkflowCommand.Execute((e.Document.Content as Border).Tag as string);
         }
 
-        private void SaveWorkflowItem_Click(object sender, RoutedEventArgs e)
+        private void Switch2Save_Click(object sender, RoutedEventArgs e)
         {
-            SaveFunctionButton.IsDropDownOpen = false;
-            SaveFunctionButton.SelectedIndex = int.Parse(((Button)sender).Tag.ToString());
+            SaveWorkflowButton.IsComboBoxDropDownOpen = false;
+            EditorWindowViewModel viewModel = (EditorWindowViewModel)DataContext;
+            viewModel.SelectSaveButtonIndexCommand.Execute(0);
+        }
+
+        private void Switch2SaveAll_Click(object sender, RoutedEventArgs e)
+        {
+            SaveWorkflowButton.IsComboBoxDropDownOpen = false;
+            EditorWindowViewModel viewModel = (EditorWindowViewModel)DataContext;
+            viewModel.SelectSaveButtonIndexCommand.Execute(1);
         }
 
         private void RunWorkflow(object sender, MouseButtonEventArgs e)
@@ -80,10 +88,18 @@ namespace AutoDoomFramework.Views
             viewModel.RunWorkflowCommand.Execute();
         }
 
-        private void ExecuteWorkflowItem_Click(object sender, RoutedEventArgs e)
+        private void Switch2Run_Click(object sender, RoutedEventArgs e)
         {
-            ExecuteWorkflowButton.IsDropDownOpen = false;
-            ExecuteWorkflowButton.SelectedIndex = int.Parse(((Button)sender).Tag.ToString());
+            ExecuteWorkflowButton.IsComboBoxDropDownOpen = false;
+            EditorWindowViewModel viewModel = (EditorWindowViewModel)DataContext;
+            viewModel.SelectExecuteButtonIndexCommand.Execute(0);
+        }
+
+        private void Switch2Debug_Click(object sender, RoutedEventArgs e)
+        {
+            ExecuteWorkflowButton.IsComboBoxDropDownOpen = false;
+            EditorWindowViewModel viewModel = (EditorWindowViewModel)DataContext;
+            viewModel.SelectExecuteButtonIndexCommand.Execute(1);
         }
     }
 }

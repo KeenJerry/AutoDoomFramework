@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoDoomFramework.ViewModels;
+using System;
 using System.Activities.Presentation;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace AutoDoomFramework.Services.Interfaces
 {
     interface IWorkflowService
     {
-        void Run(WorkflowDesigner wfDesigner);
+        void Run(WorkflowDesigner wfDesigner, EditorWindowViewModel editorWindowViewModel);
 
-        void Stop();
+        void Terminate();
     }
 }

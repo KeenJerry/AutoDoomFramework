@@ -17,10 +17,10 @@
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="FunctionButtonButton" Style="{DynamicResource FunctionButtonTopStyle}" Content="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}}" Command="{Binding SelectedCommand, RelativeSource={RelativeSource TemplatedParent}}">
+                        <Button x:Name="FunctionButtonButton" Style="{DynamicResource FunctionButtonTopStyle}" Content="{Binding ComboBoxSelectedItem, RelativeSource={RelativeSource TemplatedParent}}" Command="{Binding SelectedCommand, RelativeSource={RelativeSource TemplatedParent}}">
 
                         </Button>
-                        <ComboBox x:Name="FunctionButtonComboBox" Tag="{Binding FunctionText, RelativeSource={RelativeSource TemplatedParent}}" Grid.Row="1" IsEnabled="{Binding IsComboBoxEnabled, RelativeSource={RelativeSource TemplatedParent}}" SelectedIndex="{Binding SelectedIndex, RelativeSource={RelativeSource TemplatedParent}}" IsDropDownOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource FunctionComboBoxStyle}" ItemsSource="{Binding PopupItems, RelativeSource={RelativeSource TemplatedParent}}">
+                        <ComboBox x:Name="FunctionButtonComboBox" Tag="{Binding FunctionText, RelativeSource={RelativeSource TemplatedParent}}" Grid.Row="1" IsEnabled="{Binding IsComboBoxEnabled, RelativeSource={RelativeSource TemplatedParent}}" SelectedIndex="{Binding SelectedIndex, RelativeSource={RelativeSource TemplatedParent}}" IsDropDownOpen="{Binding IsComboBoxDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource FunctionComboBoxStyle}" ItemsSource="{Binding PopupItems, RelativeSource={RelativeSource TemplatedParent}}">
                         </ComboBox>
                     </Grid>
                 </Border>

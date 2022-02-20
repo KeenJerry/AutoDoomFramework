@@ -38,7 +38,7 @@
             </DataTemplate>
 
             <tools:ExecuteWorkflowCommandConverter x:Key="ExecuteWorkflowCommandConverter"/>
-
+            <tools:SaveWorkflowCommandConverter x:Key="SaveWorkflowCommandConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -68,67 +68,64 @@
                                 <RowDefinition Height="76"/>
                             </Grid.RowDefinitions>
 
-                            <local:FunctionButton x:Name="SaveFunctionButton" SelectedIndex="0" IsDropDownOpen="False" IsComboBoxEnabled="True">
+                            <local:FunctionButton x:Name="SaveWorkflowButton" ComboBoxSelectedIndex="{Binding SaveButtonSelectedIndex}" IsComboBoxDropDownOpen="False" IsComboBoxEnabled="True">
                                 <local:FunctionButton.PopupItems>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="SaveWorkflowItem_Click" Tag="0">
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="Switch2Save_Click">
                                         <StackPanel Orientation="Horizontal">
                                             <icons:SaveIcon/>
-                                            <Label Content="Save" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            <Label Content="Save" BorderThickness="0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="SaveWorkflowItem_Click" Tag="1">
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="Switch2SaveAll_Click" IsEnabled="False">
                                         <StackPanel Orientation="Horizontal">
                                             <icons:SaveAllIcon/>
-                                            <Label Content="Save As" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </Button>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="SaveWorkflowItem_Click" Tag="2">
-                                        <StackPanel Orientation="Horizontal">
-                                            <icons:SaveAllIcon/>
-                                            <Label Content="Save All" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            <Label Content="Save All" BorderThickness="0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </local:FunctionButton.PopupItems>
                                 <local:FunctionButton.FunctionElements>
                                     <icons:SaveIcon></icons:SaveIcon>
                                     <icons:SaveAllIcon></icons:SaveAllIcon>
-                                    <icons:SaveAllIcon></icons:SaveAllIcon>
                                 </local:FunctionButton.FunctionElements>
                                 <local:FunctionButton.FunctionElementTexts>
                                     <sys:String>Save</sys:String>
-                                    <sys:String>Save As</sys:String>
                                     <sys:String>Save All</sys:String>
                                 </local:FunctionButton.FunctionElementTexts>
-                                <local:FunctionButton.SelectedItem>
+                                <local:FunctionButton.ComboBoxSelectedItem>
                                     <icons:SaveIcon/>
-                                </local:FunctionButton.SelectedItem>
+                                </local:FunctionButton.ComboBoxSelectedItem>
                                 <local:FunctionButton.FunctionText>
                                     <sys:String>Save</sys:String>
                                 </local:FunctionButton.FunctionText>
+                                <local:FunctionButton.SelectedCommand>
+                                    <MultiBinding Converter="{StaticResource SaveWorkflowCommandConverter}">
+                                        <MultiBinding.Bindings>
+                                            <Binding Path="ComboBoxSelectedIndex" ElementName="SaveWorkflowButton"></Binding>
+                                            <Binding />
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </local:FunctionButton.SelectedCommand>
+
                             </local:FunctionButton>
 
-                            <local:FunctionButton x:Name="ExecuteWorkflowButton" Grid.Column="2" SelectedIndex="0" IsDropDownOpen="False" IsComboBoxEnabled="True">
+                            <local:FunctionButton x:Name="ExecuteWorkflowButton" Grid.Column="2" ComboBoxSelectedIndex="{Binding ExecuteButtonSelectedIndex}" IsComboBoxDropDownOpen="False" IsComboBoxEnabled="{Binding ExecuteButtonComboBoxEnabled}">
                                 <local:FunctionButton.PopupItems>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="ExecuteWorkflowItem_Click" Tag="0">
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="Switch2Run_Click">
                                         <StackPanel Orientation="Horizontal">
                                             <icons:RunIcon/>
-                                            <Label Content="Run" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            <Label Content="Run" BorderThickness="0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="ExecuteWorkflowItem_Click" Tag="1">
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="Switch2Debug_Click" IsEnabled="False">
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Background="Transparent" BorderThickness="0" Padding="0">
-                                                <icons:DebugIcon/>
-                                            </Button>
-                                            <Label Content="Debug" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            <icons:DebugIcon/>
+                                            <Label Content="Debug" BorderThickness="0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Click="ExecuteWorkflowItem_Click" Tag="2" Visibility="Collapsed">
+                                    <Button Style="{StaticResource FunctionPopupButtonStyle}" HorizontalContentAlignment="Left" BorderThickness="0" Visibility="Collapsed">
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Background="Transparent" BorderThickness="0" Padding="0">
-                                                <icons:StopIcon/>
-                                            </Button>
-                                            <Label Content="Stop" BorderThickness="0" Foreground="#CDCDCD" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
+                                            <icons:StopIcon/>
+                                            <Label Content="Stop" BorderThickness="0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" FontSize="12" Padding="0" Margin="3 0 3 0" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </Button>
                                 </local:FunctionButton.PopupItems>
@@ -142,17 +139,16 @@
                                     <sys:String>Debug</sys:String>
                                     <sys:String>Stop</sys:String>
                                 </local:FunctionButton.FunctionElementTexts>
-                                <local:FunctionButton.SelectedItem>
+                                <local:FunctionButton.ComboBoxSelectedItem>
                                     <icons:RunIcon/>
-                                </local:FunctionButton.SelectedItem>
+                                </local:FunctionButton.ComboBoxSelectedItem>
                                 <local:FunctionButton.FunctionText>
                                     <sys:String>Run</sys:String>
                                 </local:FunctionButton.FunctionText>
-
                                 <local:FunctionButton.SelectedCommand>
                                     <MultiBinding Converter="{StaticResource ExecuteWorkflowCommandConverter}">
                                         <MultiBinding.Bindings>
-                                            <Binding Path="SelectedIndex" ElementName="ExecuteWorkflowButton"></Binding>
+                                            <Binding Path="ComboBoxSelectedIndex" ElementName="ExecuteWorkflowButton"></Binding>
                                             <Binding />
                                         </MultiBinding.Bindings>
                                     </MultiBinding>

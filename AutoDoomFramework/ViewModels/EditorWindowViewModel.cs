@@ -1,4 +1,5 @@
-﻿using AutoDoomFramework.Common.Tools;
+﻿using AutoDoomFramework.Common.Events;
+using AutoDoomFramework.Common.Tools;
 using AutoDoomFramework.Models;
 using AutoDoomFramework.Models.Project;
 using AutoDoomFramework.Models.ToolBox;
@@ -7,6 +8,7 @@ using AutoDoomFramework.Services.Interfaces;
 using AutoDoomFramework.Views.Icons;
 using AvalonDock.Layout;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using System;
 using System.Activities;
@@ -38,6 +40,180 @@ namespace AutoDoomFramework.ViewModels
         private readonly IResourceService resourceService;
         private readonly IActivityService activityService;
         private readonly IWorkflowService workflowService;
+
+        private readonly IEventAggregator eventAggregator;
+
+        #region ExecuteButton
+        // ExecuteButton Binding Parameters
+        private int OriginExecuteButtonSelectedIndex;
+
+        private int executeButtonSelectedIndex = 0;
+        public int ExecuteButtonSelectedIndex
+        {
+            get => executeButtonSelectedIndex;
+            set
+            {
+                SetProperty(ref executeButtonSelectedIndex, value);
+                RaisePropertyChanged(nameof(ExecuteButtonSelectedIndex));
+            }
+        }
+
+        private bool executeButtonComboBoxEnabled = true;
+        public bool ExecuteButtonComboBoxEnabled
+        {
+            get => executeButtonComboBoxEnabled;
+            set
+            {
+                SetProperty(ref executeButtonComboBoxEnabled, value);
+                RaisePropertyChanged(nameof(ExecuteButtonComboBoxEnabled));
+            }
+        }
+
+        public void PublishProcessStartEvent()
+        {
+            eventAggregator.GetEvent<ProcessStartedEvent>().Publish();
+        }
+        private void OnProcessStart()
+        {
+            Console.WriteLine("EditorWindowViewModel Process Started");
+            OriginExecuteButtonSelectedIndex = ExecuteButtonSelectedIndex;
+            ExecuteButtonSelectedIndex = 2;
+            ExecuteButtonComboBoxEnabled = false;
+        }
+
+        public void PublishProcessCompleteEvent()
+        {
+            eventAggregator.GetEvent<ProcessCompleteEvent>().Publish();
+        }
+        private void OnProcessComplete()
+        {
+            Console.WriteLine("EditorWindowViewModel Process Completed");
+            ExecuteButtonSelectedIndex = OriginExecuteButtonSelectedIndex;
+            ExecuteButtonComboBoxEnabled = true;
+        }
+
+        public void PublishProcessTerminateEvent()
+        {
+            eventAggregator.GetEvent<ProcessTerminateEvent>().Publish();
+        }
+        private void OnProcessTerminate()
+        {
+            Console.WriteLine("EditorWindowViewModel Process Terminated");
+            ExecuteButtonSelectedIndex = OriginExecuteButtonSelectedIndex;
+            ExecuteButtonComboBoxEnabled = true;
+        }
+
+        private void SelectExecuteButtonIndex(object index)
+        {
+            if (!(index is null))
+            {
+                if (index is int)
+                {
+                    ExecuteButtonSelectedIndex = (int)index;
+                }
+            }
+        }
+        public DelegateCommand<object> SelectExecuteButtonIndexCommand { get; private set; }
+
+        // ExecuteButton Command
+        public DelegateCommand RunWorkflowCommand { get; private set; }
+        private void RunWorkflow()
+        {
+            string mainWorkflowName = (WorkingRegistry as DProcess).MainWorkflow.FileName;
+
+            WorkflowDesigner wf = null;
+            switch (WorkingRegistry)
+            {
+                case DProcess process:
+                    {
+                        wf = (WorkingRegistry as DProcess).WorkflowCollection.MainWorkflow.Instance;
+                        break;
+                    }
+            }
+
+            if (wf is null)
+            {
+                Console.WriteLine("Workflow not found.");
+            }
+            else
+            {
+
+                wf.Flush();
+                wf.Save(Path.Combine(WorkingRegistry.Location, WorkingRegistry.Name, mainWorkflowName));
+
+                workflowService.Run(wf, this);
+            }
+        }
+
+        public DelegateCommand DebugWorkflowCommand { get; private set; }
+        private void DebugWorkflow()
+        {
+            Console.WriteLine("Debug Start");
+        }
+
+        public DelegateCommand TerminateWorkflowCommand { get; private set; }
+        private void TerminateWorkflow()
+        {
+            workflowService.Terminate();
+        }
+        #endregion
+
+        #region SaveButton
+        private int saveButtonSelectedIndex = 0;
+        public int SaveButtonSelectedIndex
+        {
+            get => saveButtonSelectedIndex;
+            set
+            {
+                SetProperty(ref saveButtonSelectedIndex, value);
+                RaisePropertyChanged(nameof(SaveButtonSelectedIndex));
+            }
+        }
+
+        private void SelectedSaveButtonIndex(object index) 
+        {
+            if (!(index is null))
+            {
+                if (index is int @id)
+                {
+                    SaveButtonSelectedIndex = @id;
+                }
+            }
+        }
+        public DelegateCommand<object> SelectSaveButtonIndexCommand { get; private set; }
+
+        // SaveButton Command
+        public DelegateCommand SaveWorkflowCommand { get; private set; }
+        private void SaveWorkflow()
+        {
+            Console.WriteLine("Save Workflow");
+            string mainWorkflowName = (WorkingRegistry as DProcess).MainWorkflow.FileName;
+
+            WorkflowDesigner wf = null;
+            switch (WorkingRegistry)
+            {
+                case DProcess process:
+                    {
+                        wf = (WorkingRegistry as DProcess).WorkflowCollection.MainWorkflow.Instance;
+                        break;
+                    }
+            }
+
+            if (wf is null)
+            {
+                Console.WriteLine("Workflow not found.");
+            }
+            else
+            {
+                wf.Flush();
+                wf.Save(Path.Combine(WorkingRegistry.Location, WorkingRegistry.Name, mainWorkflowName));
+            }
+        }
+
+        public DelegateCommand SaveAllWorkflowCommand { get; private set; }
+        private void SaveAllWorkflow() { }
+        #endregion
+
 
         private string registryName;
         public string RegistryName
@@ -176,90 +352,50 @@ namespace AutoDoomFramework.ViewModels
             wd.Save(Path.Combine(cacheService.GetWorkingRegistry().Location, cacheService.GetWorkingRegistry().Name, workflowName));
         }
 
-        public DelegateCommand RunWorkflowCommand { get; private set; }
-        private void RunWorkflow()
+        public EditorWindowViewModel(ICacheService cacheService, IActivityService activityService, IResourceService resourceService, IWorkflowService workflowService, IEventAggregator eventAggregator)
         {
-            string mainWorkflowName = (WorkingRegistry as DProcess).MainWorkflow.FileName;
-
-            WorkflowDesigner wf = null;
-            switch (WorkingRegistry)
-            {
-                case DProcess process:
-                    {
-                        wf = (WorkingRegistry as DProcess).WorkflowCollection.MainWorkflow.Instance;
-                        break;
-                    }
-            }
-
-            if (wf is null)
-            {
-                Console.WriteLine("Workflow not found.");
-            }
-            else
-            {
-
-                wf.Flush();
-                wf.Save(Path.Combine(WorkingRegistry.Location, WorkingRegistry.Name,mainWorkflowName));
-
-                workflowService.Run(wf);
-                //MemoryStream workflowStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(wf.Text));
-
-                //ActivityXamlServicesSettings settings = new ActivityXamlServicesSettings()
-                //{
-                //    CompileExpressions = true
-                //};
-
-                //Activity activityExecute = ActivityXamlServices.Load(workflowStream, settings);
-
-                //WorkflowApplication workflowApplication = new WorkflowApplication(activityExecute);
-                //workflowApplication.Run();
-            }
-        }
-
-        public DelegateCommand DebugWorkflowCommand { get; private set; }
-        private void DebugWorkflow() 
-        {
-            Console.WriteLine("Debug Start");
-        }
-
-        public DelegateCommand StopWorkflowCommand { get; private set; }
-        private void StopWorkflow() { }
-
-        public DelegateCommand SaveWorkflowCommand { get; private set; }
-        private void SaveWorkflow() { }
-
-        public DelegateCommand SaveAllWorkflowCommand { get; private set; }
-        private void SaveAllWorkflow() { }
-
-        public DelegateCommand SaveAsWorkflowCommand { get; private set; }
-        private void SaveAsWorkflow() { }
-
-
-        public EditorWindowViewModel(ICacheService cacheService, IActivityService activityService, IResourceService resourceService, IWorkflowService workflowService)
-        {
+            #region Service Initialize
             this.cacheService = cacheService;
             this.resourceService = resourceService;
             this.activityService = activityService;
             this.workflowService = workflowService;
+            #endregion
+
+            #region Event Aggregator Initialize
+            this.eventAggregator = eventAggregator;
+            eventAggregator.GetEvent<ProcessStartedEvent>().Subscribe(OnProcessStart);
+            eventAggregator.GetEvent<ProcessCompleteEvent>().Subscribe(OnProcessComplete);
+            eventAggregator.GetEvent<ProcessTerminateEvent>().Subscribe(OnProcessTerminate);
+            #endregion
 
             RegistryName = cacheService.GetWorkingRegistryName();
 
+            #region LoadActivities
             activityService.LoadSystemActivities();
             activityService.LoadOCRActivities();
             activityService.LoadRenderActivities();
             activityService.LoadElementActivities();
-
             activityService.LoadDialDetectionActivities();
             //activityService.LoadRTMPActivities();
+            #endregion
 
+            #region CommandInitialize
+            #region OpenAndCloseCommand
             OpenWorkflowCommand = new DelegateCommand<string>(OpenWorkflow);
             CloseWorkflowCommand = new DelegateCommand<string>(CloseWorkflow);
+            #endregion
+            #region ExecuteCommand
             RunWorkflowCommand = new DelegateCommand(RunWorkflow);
             DebugWorkflowCommand = new DelegateCommand(DebugWorkflow);
-            StopWorkflowCommand = new DelegateCommand(StopWorkflow);
+            TerminateWorkflowCommand = new DelegateCommand(TerminateWorkflow);
+            SelectExecuteButtonIndexCommand = new DelegateCommand<object>(SelectExecuteButtonIndex);
+            #endregion
+            #region SaveCommand
             SaveWorkflowCommand = new DelegateCommand(SaveWorkflow);
             SaveAllWorkflowCommand = new DelegateCommand(SaveAllWorkflow);
-            SaveAsWorkflowCommand = new DelegateCommand(SaveAsWorkflow);
+            SelectSaveButtonIndexCommand = new DelegateCommand<object>(SelectedSaveButtonIndex);
+            #endregion
+            #endregion
         }
     }
 }

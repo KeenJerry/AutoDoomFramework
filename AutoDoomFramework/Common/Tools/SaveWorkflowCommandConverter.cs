@@ -9,23 +9,19 @@ using System.Windows.Data;
 
 namespace AutoDoomFramework.Common.Tools
 {
-    class ExecuteWorkflowCommandConverter : IMultiValueConverter
+    class SaveWorkflowCommandConverter: IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            switch(values[0])
+            switch (values[0])
             {
                 case 0:
                     {
-                        return (values[1] as EditorWindowViewModel).RunWorkflowCommand;
+                        return (values[1] as EditorWindowViewModel).SaveWorkflowCommand;
                     }
                 case 1:
                     {
-                        return (values[1] as EditorWindowViewModel).DebugWorkflowCommand;
-                    }
-                case 2:
-                    {
-                        return (values[1] as EditorWindowViewModel).TerminateWorkflowCommand;
+                        return (values[1] as EditorWindowViewModel).SaveAllWorkflowCommand;
                     }
                 default:
                     {
