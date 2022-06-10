@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDoomFramework", "AutoDo
 	ProjectSection(ProjectDependencies) = postProject
 		{896E4A02-054D-488F-AA60-3CD6BC91E19F} = {896E4A02-054D-488F-AA60-3CD6BC91E19F}
 		{B4030E14-D28B-421C-B75D-B0C032516239} = {B4030E14-D28B-421C-B75D-B0C032516239}
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C} = {52D85524-B2E4-4E94-A28B-5A4E7508925C}
 		{1C0DAA49-B692-402B-A482-68611770B2C0} = {1C0DAA49-B692-402B-A482-68611770B2C0}
 	EndProjectSection
 EndProject
@@ -21,7 +22,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoDoom.Dial", "..\AutoDoom.Dial\AutoDoom.Dial\AutoDoom.Dial.csproj", "{1C0DAA49-B692-402B-A482-68611770B2C0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{896E4A02-054D-488F-AA60-3CD6BC91E19F} = {896E4A02-054D-488F-AA60-3CD6BC91E19F}
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C} = {52D85524-B2E4-4E94-A28B-5A4E7508925C}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AutoDoom.Tools.WindowCapture", "..\AutoDoom.Tools.WindowCapture\AutoDoom.Tools.WindowCapture\AutoDoom.Tools.WindowCapture.vcxproj", "{52D85524-B2E4-4E94-A28B-5A4E7508925C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,6 +108,16 @@ Global
 		{1C0DAA49-B692-402B-A482-68611770B2C0}.Release|x64.Build.0 = Release|Any CPU
 		{1C0DAA49-B692-402B-A482-68611770B2C0}.Release|x86.ActiveCfg = Release|Any CPU
 		{1C0DAA49-B692-402B-A482-68611770B2C0}.Release|x86.Build.0 = Release|Any CPU
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Debug|x64.ActiveCfg = Debug|x64
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Debug|x64.Build.0 = Debug|x64
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Debug|x86.ActiveCfg = Debug|Win32
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Debug|x86.Build.0 = Debug|Win32
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Release|Any CPU.ActiveCfg = Release|Win32
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Release|x64.ActiveCfg = Release|x64
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Release|x64.Build.0 = Release|x64
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Release|x86.ActiveCfg = Release|Win32
+		{52D85524-B2E4-4E94-A28B-5A4E7508925C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

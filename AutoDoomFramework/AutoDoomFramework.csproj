@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -532,6 +532,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\x64\Release\AutoDoom.Dial.Detect.dll C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\AutoDoomFramework\bin\x64\Release</PostBuildEvent>
+    <PostBuildEvent>xcopy /y C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\x64\Release\AutoDoom.Dial.Detect.dll C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\AutoDoomFramework\bin\x64\Release
+xcopy /y C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\x64\Debug\AutoDoom.Dial.Detect.dll C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\AutoDoomFramework\bin\x64\Debug
+xcopy /y C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\x64\Release\AutoDoom.Tools.WindowCapture.dll C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\AutoDoomFramework\bin\x64\Release
+xcopy /y C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\x64\Debug\AutoDoom.Tools.WindowCapture.dll C:\Users\KeenJackdaw\VSProjects\AutoDoomFramework\AutoDoomFramework\bin\x64\Debug</PostBuildEvent>
   </PropertyGroup>
 </Project>
